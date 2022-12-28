@@ -29,10 +29,10 @@ description:           >
   with a focus on personal sites that are meant to impress.
 
 # A shorter description for the sidebar.
-tagline:               Welcome # 부제목
+tagline:               공부해보자고 # 부제목
 
 # A list of keywords for your blog
-keywords:              []
+keywords:              [메모,할 것]
 
 # A (square) logo for your site.
 # If provided, it will be shown at the top of the sidebar.
@@ -49,9 +49,9 @@ author:
 
 # Add links to the sidebar.
 menu:
-  - title:             Example
+  - title:             메모
     url:               /example/
-  - title:             Documentation
+  - title:             할 것
     url:               /docs/
   - title:             About
     url:               /about/
