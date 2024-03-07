@@ -3,7 +3,7 @@ date: 2024-03-07 00:00:00
 layout: post
 title: 프로그래머스 모의고사[자바]
 subtitle: 프로그래머스 모의고사 Lv1[자바]
-description: 자바언어로 모의고사 뽑아 더하기
+description: 자바언어로 모의고사
 image: /assets/img/java-logo.gif
 optimized_image: /assets/img/java-logo.gif
 category: algorithm

@@ -12,6 +12,10 @@ show_hero: true
 menu:
   - title: Home
     url: /
+  - title: Algorithm
+    url: /algorithms/
+  - title: Java
+    url: /java
   - title: About
     url: /about
   - title: Contact
