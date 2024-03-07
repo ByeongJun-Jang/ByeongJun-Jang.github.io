@@ -4,8 +4,8 @@ layout: post
 title: 프로그래머스 두 수 뽑아서 더하기[자바]
 subtitle: 프로그래머스 두 수 뽑아서 더하기 Lv1[자바]
 description: 자바언어로 프로그래머스 두 수 뽑아 더하기
-image: https://www.oracle.com/oce/press/assets/CONT6C95347B9ECC40CF8E7272A74FD80BDE/native/rc24-java-logo.gif
-optimized_image: https://www.oracle.com/oce/press/assets/CONT6C95347B9ECC40CF8E7272A74FD80BDE/native/rc24-java-logo.gif
+image: /assets/img/java-logo.gif
+optimized_image: /assets/img/java-logo.gif
 category: algorithm
 tags:
   - study
