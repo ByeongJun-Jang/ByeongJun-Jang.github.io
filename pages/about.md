@@ -7,13 +7,10 @@ description: Some description.
 permalink: /about/
 ---
 
-<img class="img-rounded" src="/assets/img/uploads/profile.png" alt="Thomas A. Anderson" width="200">
+<img class="img-rounded" src="/assets/img/uploads/11.jpeg" alt="Thomas A. Anderson" width="400" height="400">
 
-# About
+# About Me
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+My name is ByeongJun-Jang.  
+Originally, I was a dream to be a front-end developer,  
+but now I have set my sights on a back-end developer based on Java language.
