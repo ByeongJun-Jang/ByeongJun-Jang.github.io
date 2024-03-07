@@ -50,6 +50,10 @@ sent_message_url: "/contact/message-sent/"
 
 # Build settings
 markdown: kramdown
+kramdown:
+  auto_id_prefix: "kramdown_"
+  auto_ids: true
+  smart_quotes: ["apos", "apos", "quot", "quot"]
 highlighter: rouge
 permalink: /:title/
 collections:
