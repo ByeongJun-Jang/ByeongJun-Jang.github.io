@@ -1,8 +1,7 @@
 # Site Settings
-name: Jekflix
-title: Jekflix | A blog theme for Jekyll
-description: Jekflix is a template for Jekyll inspired by Netflix and made by
-  Thiago Rossener.
+name: Junified7
+title: Junified7 
+description: This is Junified7 Github Pages
 tags:
   - blog
   - template
@@ -19,7 +18,7 @@ menu:
     url: /contact
   - title: Feed
     url: /feed.xml
-email: youremail@test.com
+email: qudwns8616@gmail.com
 # See: https://disqus.com/
 disqus_username: disqus_username
 # Contact Form Setting
