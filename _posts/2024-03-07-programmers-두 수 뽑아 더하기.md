@@ -1,16 +1,17 @@
 ---
-date: 2017-08-07 23:04:08
+date: 2024-03-07 13:00:00
 layout: post
-title: A star has fallen from the sky and the cat ate it
-subtitle: Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-description: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-image: https://res.cloudinary.com/dm7h7e8xj/image/upload/v1559822138/theme10_xenudc.jpg
-optimized_image: https://res.cloudinary.com/dm7h7e8xj/image/upload/c_scale,w_380/v1559822138/theme10_xenudc.jpg
-category: music
+title: 프로그래머스 두 수 뽑아 더하기[자바]
+subtitle: 프로그래머스 두 수 뽑아 더하기 Lv1[자바]
+description: 자바언어로 프로그래머스 두 수 뽑아 더하기
+image: https://www.oracle.com/oce/press/assets/CONT6C95347B9ECC40CF8E7272A74FD80BDE/native/rc24-java-logo.gif
+optimized_image: https://www.oracle.com/oce/press/assets/CONT6C95347B9ECC40CF8E7272A74FD80BDE/native/rc24-java-logo.gif
+category: algorithm
 tags:
-  - crazy
-  - story
-author: mranderson
+  - study
+  - java
+author: ByeongJun-Jang
+paginate: true
 ---
 
 Cas sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. *Aenean eu leo quam.* Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.
@@ -18,6 +19,8 @@ Cas sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, na
 > Curabitur blandit tempus porttitor. Nullam quis risus eget urna mollis ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.
 
 Etiam porta **sem malesuada magna** mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.
+
+<!--page-->
 
 ## Inline HTML elements
 
@@ -31,6 +34,8 @@ HTML defines a long list of available inline tags, a complete list of which can 
 - Superscript <sup>text</sup> uses `<sup>` and subscript <sub>text</sub> uses `<sub>`.
 
 Most of these elements are styled by browsers with few modifications on our part.
+
+<!--page-->
 
 # Heading 1
 
@@ -57,6 +62,8 @@ adder(2, 6);
 // > 8
 ```
 
+<!--page-->
+
 Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.
 
 ## Lists
@@ -72,6 +79,8 @@ Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a p
 1. Vestibulum id ligula porta felis euismod semper.
 2. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
 3. Maecenas sed diam eget risus varius blandit sit amet non magna.
+
+<!--page-->
 
 Cras mattis consectetur purus sit amet fermentum. Sed posuere consectetur est at lobortis.
 
@@ -122,25 +131,3 @@ Aenean lacinia bibendum nulla sed consectetur. Lorem ipsum dolor sit amet, conse
     </tr>
   </tbody>
 </table>
-
-Nullam id dolor id nibh ultricies vehicula ut id elit. Sed posuere consectetur est at lobortis. Nullam quis risus eget urna mollis ornare vel eu leo.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
