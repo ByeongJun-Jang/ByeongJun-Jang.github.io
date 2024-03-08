@@ -15,7 +15,9 @@ menu:
   - title: Algorithm
     url: /algorithms/
   - title: Java
-    url: /java
+    url: /java/
+  - title: Spring
+    url: /spring/
   - title: About
     url: /about
   - title: Contact
