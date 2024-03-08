@@ -4,12 +4,13 @@ layout: post
 title: 프로그래머스 두 수 뽑아서 더하기[자바]
 subtitle: 프로그래머스 두 수 뽑아서 더하기 Lv1[자바]
 description: 자바언어로 프로그래머스 두 수 뽑아 더하기
-image: /assets/img/java-logo.gif
-optimized_image: /assets/img/java-logo.gif
+image: /assets/img/programmers1.png
+optimized_image: /assets/img/programmers.png
 category: algorithm
 tags:
   - study
   - java
+  - algorithm
 author: byeongjunjang
 paginate: true
 ---
