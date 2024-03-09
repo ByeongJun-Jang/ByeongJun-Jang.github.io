@@ -63,8 +63,9 @@ paginate: true
 
 ## 정답 코드
 
-<pre>
-<code>public static void main(String[] args) {
+
+{% highlight java %}
+public static void main(String[] args) {
         System.out.println(Arrays.toString(solution(new int[]{1, 3, 2, 4, 2})));
         System.out.println(Arrays.toString(solution(new int[]{1, 2, 3, 4, 5})));
     }
@@ -91,4 +92,5 @@ paginate: true
             }
         }
         return result.stream().mapToInt(Integer::intValue).toArray();
-    }</code></pre>
+    }
+{% endhighlight %}

@@ -51,12 +51,13 @@ numbers의 모든 수는 0 이상 100 이하입니다.
 
 ## 정답 코드
 
-<pre>
-<code>import java.util.TreeSet;
+
+{% highlight java %}
+import java.util.TreeSet;
 
 class Solution {
     public int[] solution(int[] arr) {
-        TreeSet &lt;Integer&gt; set = new TreeSet&lt;&gt;();
+        TreeSet <Integer> set = new TreeSet<>();
         for (int i = 0; i < arr.length; i++) {
             for (int j = i + 1; j < arr.length; j++) {
                 set.add(arr[i]+arr[j]);
@@ -68,4 +69,5 @@ class Solution {
         }
         return result;
     }
-}</code></pre>
+}
+{% endhighlight %}

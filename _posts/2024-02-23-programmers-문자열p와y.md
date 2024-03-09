@@ -27,14 +27,14 @@ paginate: true
 
 ### ☻ 정답 코드
 
-<pre><code>
+{% highlight java %}
 class Solution {
     boolean solution(String s) {
         boolean answer = true;
         s=s.toLowerCase();
         int pC = 0;
         int yC = 0;
-        for(int i=0; i&lt;s.length();i++){
+        for(int i=0; i < s.length();i++){
             if (s.charAt(i)=='p'){
                 pC++;
             } else if (s.charAt(i)=='y') {
@@ -46,4 +46,4 @@ class Solution {
         return answer;
     }
 }
-</code></pre>
+{% endhighlight %}

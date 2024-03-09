@@ -58,8 +58,8 @@ paginate: true
 
 > 아래는 결과 출력을 위해 작성했다.
 
-~~~java
-public class ArrMultiplication {
+{% highlight java %}
+  public class ArrMultiplication {
     public static void main(String[] args) {
         System.out.println(Arrays.deepToString(soulution(
                 new int[][]{
@@ -76,13 +76,7 @@ public class ArrMultiplication {
                         {5,4,3}, {2,4,1}, {3,1,1}
                 })));
     }
-~~~
-
-> 아래는 정답 코드다.  
-위 코드와 같이 붙여 사용하고 싶지만 구문강조를 하면 특수문자가 인코딩이 안된다....
-
-<pre>
-<code>public static int[][] soulution(int[][] arr1, int[][] arr2) {
+    public static int[][] soulution(int[][] arr1, int[][] arr2) {
         int arr1Row = arr1.length;
         int arr1Col = arr1[0].length;
         int arr2Col = arr2[0].length;
@@ -97,4 +91,5 @@ public class ArrMultiplication {
 
         return result;
     }
-}</code></pre>
+}
+{% endhighlight %}
