@@ -22,8 +22,8 @@ menu:
     url: /blog/
   - title: About
     url: /about
-  - title: Contact
-    url: /contact
+  # - title: Contact
+  #   url: /contact
   # - title: Feed
   #   url: /feed.xml
 email: qudwns8616@gmail.com
