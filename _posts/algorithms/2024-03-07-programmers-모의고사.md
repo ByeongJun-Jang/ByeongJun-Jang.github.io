@@ -85,7 +85,7 @@ public static void main(String[] args) {
             }
         }
         int maxScore = Arrays.stream(answer).max().getAsInt();
-        ArrayList&lt;Integer&gt; result = new ArrayList<>();
+        ArrayList<Integer> result = new ArrayList<>();
         for (int i = 0; i < answer.length; i++) {
             if (answer[i] == maxScore) {
                 result.add(i + 1);
