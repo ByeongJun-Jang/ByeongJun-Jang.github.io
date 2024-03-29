@@ -28,6 +28,17 @@ api를 활용하면 성능이 오르는 것을 알았다.
                 .mapToInt(HashMap.Entry::getKey).toArray();
 {% endhighlight %}
 
-### 참고 레퍼런스
+#### 기능
 
-[Optional 바르게 쓰기](https://homoefficio.github.io/2019/10/03/Java-Optional-%EB%B0%94%EB%A5%B4%EA%B2%8C-%EC%93%B0%EA%B8%B0/)
+~~~java
+.sorted((a1, a2) -> Double.compare(a2.getValue(), a1.getValue()))
+~~~
+스트림의 엔트리들을 사용자 정의 비교자(comparator)로 정렬한다.  
+이 비교자는 두 엔트리 a1과 a2의 값을 비교하여 내림차순으로 정렬한다.  
+Double.compare(a2.getValue(), a1.getValue())는 먼저 a2의 값을 a1의 값과 비교한다.  내림차순 정렬을 위해 순서를 바꿔 비교한다.
+~~~java
+.mapToInt(HashMap.Entry::getKey).toArray()
+~~~ 
+정렬된 스트림을 mapToInt 연산을 사용하여 변환한다.  
+이 연산은 각 엔트리의 키(Integer)를 정수(int)로 변환한다.  
+그리고 toArray() 메소드를 사용하여 정수 스트림을 정수 배열로 변환한다.
