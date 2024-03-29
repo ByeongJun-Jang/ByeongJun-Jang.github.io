@@ -69,9 +69,47 @@ paginate: true
 
 ## 풀이
 
+1. stage란 배열은 어떤 플레이어가 스테이지에 있는지 사용.
+2. 실패율을 계산할 때, HashMap을 사용했는데 스테이지 별 실패율을 나타나기 위함.
+3. 실패율을 계산할 때마다 총 플레이어수 total을 빼줌
+4. 배열 내림차순 return
 
 ## 정답 코드
 
 {% highlight java %}
+package algorithm.programmers;
 
+import java.util.Arrays;
+import java.util.HashMap;
+
+public class Failure {
+    public static void main(String[] args) {
+        System.out.println(Arrays.toString(solution(5, new int[]{2, 1, 2, 6, 2, 4, 3, 3})));
+    }
+
+    public static int[] solution(int n, int[] arr) {
+        int[] stage = new int[n + 2];
+
+        for (int i = 0; i < arr.length; i++) {
+            stage[arr[i]] += 1;
+        }
+
+        HashMap<Integer, Double> failure = new HashMap<>();
+        double total = arr.length;
+        
+        for (int i = 1; i <= n; i++) {
+            if (stage[i] == 0) {
+                failure.put(i, 0.);
+            } 
+            else {
+                failure.put(i, stage[i] / total);
+                total -= stage[i];
+            }
+        }
+
+        return failure.entrySet().stream().sorted((a1, a2) -> 
+        Double.compare(a2.getValue(), a1.getValue()))
+        .mapToInt(HashMap.Entry::getKey).toArray();
+    }
+}
 {% endhighlight %}
