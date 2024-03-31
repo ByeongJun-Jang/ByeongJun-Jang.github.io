@@ -60,5 +60,52 @@ paginate: true
 ## 정답 코드
 
 {% highlight java %}
+import java.util.HashSet;
+import java.util.HashMap;
 
+public class EnterLength {
+    public static void main(String[] args) {
+        System.out.println(solution("ULURRDLLU"));
+        System.out.println(solution("LULLLLLLU"));
+    }
+
+    private static boolean checkRange(int x, int y) {
+        return 0 <= x && x < 11 && 0 <= y && y < 11;
+    }
+
+    private static HashMap<String, int[]> location = new HashMap<>();
+
+    private static void init() {
+        location.put("U", new int[]{0, 1});
+        location.put("D", new int[]{0, -1});
+        location.put("R", new int[]{1, 0});
+        location.put("L", new int[]{-1, 0});
+    }
+
+    public static int solution(String s) {
+        init();
+        int x = 5, y = 5;
+        HashSet<String> ans = new HashSet<>();
+        for (int i = 0; i < s.length(); i++) {
+//            System.out.println("direct = " + s.charAt(i));
+//            System.out.println("location = " + location.get(s.charAt(i)));
+            int[] direct = location.get(s.charAt(i));
+            if (direct == null) {
+                System.out.println("Undefined direction for character: " + s.charAt(i));
+                continue; // 다음 반복으로 넘어갑니다.
+            }
+//            int nx = x + direct[0];
+//            int ny = y + direct[1];
+//            if (!checkRange(nx, ny)) {
+//                continue;
+//            }
+//            ans.add(x + "  " + y + " " + nx + " " + ny);
+//            ans.add(nx + "  " + ny + " " + x + " " + y);
+//
+//            x = nx;
+//            y = ny;
+        }
+        return ans.size() / 2;
+    }
+}
 {% endhighlight %}
