@@ -15,13 +15,39 @@ author: byeongjunjang
 paginate: true
 ---
 
-<a href="https://school.programmers.co.kr/learn/courses/30/lessons/120817">배열의 평균값</a>
+<a href="https://school.programmers.co.kr/learn/courses/30/lessons/120817">배열의 평균값</a>  
 <a href="https://school.programmers.co.kr/learn/courses/30/lessons/120831">짝수의 합</a>
 
 
 ## 정답 코드
 
+#### 짝수의 합
+
 {% highlight java %}
 
+import java.util.stream.IntStream;
 
+class Solution {
+    public int solution(int n) {
+        int answer = IntStream.rangeClosed(1,n)
+            .filter(i -> i % 2 == 0)
+            .sum();
+        return answer;
+    }
+}
+
+{% endhighlight %}
+
+#### 배열의 평균값
+
+{% highlight java %}
+import java.util.Arrays;
+
+class Solution {
+    public double solution(int[] arr) {
+        return Arrays.stream(arr)
+                .average()
+                .orElse(Double.NaN);
+    }
+}
 {% endhighlight %}
