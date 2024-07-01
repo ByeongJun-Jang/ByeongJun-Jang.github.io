@@ -1,1 +1,0 @@
-# [ByeongJun-Jang](https://byeongjun-jang.github.io/)

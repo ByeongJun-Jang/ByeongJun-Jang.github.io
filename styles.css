@@ -1,0 +1,432 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #000, #2c3e50);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+button {
+    cursor: pointer;
+    color: #fff;
+    background-color: #00aaff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0088cc;
+}
+
+img {
+    object-fit: cover;
+}
+
+h2 {
+    font-weight: 700;
+    color: #00ffcc;
+    margin-bottom: 24px;
+}
+
+h4 {
+    font-weight: bold;
+    color: #65829f;
+    margin-top: 32px;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 12px;
+    color: #dedede;
+}
+
+.slides-container {
+    display: flex;
+    overflow: hidden;
+    font-family: "Gowun Dodum", sans-serif;
+    width: 100vw;
+    height: calc(100vh - 60px); /* 헤더 높이를 뺀 나머지 영역을 슬라이드 컨테이너가 차지 */
+    position: relative;
+    transition: transform 0.5s ease-in-out;
+    margin-top: 60px; /* 헤더 높이만큼의 여백을 추가 */
+}
+
+.slide {
+    min-width: 100vw;
+    height: calc(100vh - 60px); /* 헤더 높이를 뺀 나머지 영역을 슬라이드가 차지 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    font-family: "PT Sans Narrow", sans-serif;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    padding: 10px 20px;
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    height: 60px;
+}
+
+.nav-container {
+    margin-top: -20px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+header img {
+    margin-top: 30px;
+    width: 100px;
+}
+
+header .navigation {
+    display: flex;
+    gap: 100px;
+    margin-top: 50px;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+header .navigation a {
+    font-size: 24px;
+    color: #fff;
+    text-decoration: none;
+    overflow: hidden;
+    transition: color 0.3s ease;
+}
+
+header .navigation a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -30px;
+    width: 100%;
+    height: 2px;
+    background-color: #00ffcc;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+header .navigation a:hover::after {
+    transform: scaleX(1);
+}
+
+header .navigation a:hover {
+    color: #00ffcc;
+}
+
+.intro {
+    text-align: center;
+}
+
+.intro .intro-left {
+    max-width: 600px;
+}
+
+.intro .intro-top h2 {
+    font-size: 48px;
+    margin-bottom: 100px;
+}
+
+.intro .intro-top p {
+    font-size: 20px;
+    margin-bottom: 24px;
+}
+
+.intro .intro-top h4 {
+    font-size: 20px;
+}
+
+.intro .intro-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.intro .intro-top .intro-buttons button {
+    font-size: 18px;
+    padding: 10px 20px;
+}
+
+.intro .intro-top .intro-buttons button i {
+    font-size: 24px;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 50px;
+}
+
+.info > p {
+    font-size: 16px;
+    color: #00ffcc;
+    padding: 6px 14px;
+    margin-bottom: 12px;
+}
+
+.info > h2 {
+    font-size: 300px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.skills-container {
+    padding: 50px;
+}
+
+.skills-container h2 {
+    font-size: 32px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.skills-list {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.skill-item {
+    text-align: center;
+    position: relative;
+}
+
+.skill-item svg {
+    font-size: 48px;
+}
+
+.skill-item i {
+    font-size: 48px;
+    color: #FFFFFF;
+}
+
+.skill-item p {
+    font-size: 24px;
+    margin-top: 12px;
+    display: none;
+}
+
+.skill-item:hover p {
+    display: block;
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.portfolio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    width: 100%;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+}
+
+.portfolio .portfolio-inner {
+    width: 100%;
+    max-width: 1200px;
+    padding: 30px;
+}
+
+.portfolio .portfolio-inner h1 {
+    font-size: 36px;
+    color: #00ffcc;
+    margin-bottom: 32px;
+}
+
+.portfolio .project-item {
+    margin-bottom: 20px;
+}
+
+.portfolio .project-item h3 {
+    font-size: 28px;
+    color: #00aaff;
+    margin-bottom: 10px;
+}
+
+.portfolio .project-item p {
+    font-size: 18px;
+    color: #DEDEDE;
+}
+
+.collaboration {
+    padding: 50px;
+}
+
+.collaboration > h2 {
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: #00ffcc;
+}
+
+.collaboration .collaboration-items {
+    display: flex;
+    gap: 20px;
+}
+
+.collaboration .collaboration-item {
+    flex: 1;
+    padding: 20px;
+    background: #222;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.collaboration .collaboration-item:hover {
+    transform: translateY(-10px);
+}
+
+.collaboration .collaboration-item a {
+    font-size: 24px;
+    color: #00aaff;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.collaboration .collaboration-item p {
+    font-size: 18px;
+    color: #bbb;
+    margin-bottom: 20px;
+}
+
+.collaboration .collaboration-item button {
+    padding: 10px 20px;
+    background: #00aaff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.collaboration .collaboration-item button:hover {
+    background: #0088cc;
+}
+
+@media screen and (max-width: 1280px) {
+    .intro .intro-top h2 {
+        font-size: 36px;
+    }
+
+    .intro .intro-top p {
+        font-size: 16px;
+    }
+
+    .intro .intro-top .intro-buttons button {
+        font-size: 16px;
+    }
+
+    .info > h2 {
+        font-size: 24px;
+    }
+
+    .portfolio .portfolio-inner h2 {
+        font-size: 28px;
+    }
+
+    .collaboration > h2 {
+        font-size: 28px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .intro .intro-top h2 {
+        font-size: 28px;
+    }
+
+    .intro .intro-top p {
+        font-size: 14px;
+    }
+
+    .intro .intro-top .intro-buttons button {
+        font-size: 14px;
+    }
+
+    .info > h2 {
+        font-size: 20px;
+    }
+
+    .portfolio .portfolio-inner h2 {
+        font-size: 24px;
+    }
+
+    .collaboration > h2 {
+        font-size: 24px;
+    }
+
+    .collaboration .collaboration-items {
+        flex-direction: column;
+    }
+
+    .collaboration .collaboration-item {
+        margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    header,
+    header .navigation {
+        gap: 10px;
+    }
+
+    .intro .intro-top h2 {
+        font-size: 24px;
+    }
+
+    .intro .intro-top p {
+        font-size: 12px;
+    }
+
+    .intro .intro-top .intro-buttons button {
+        font-size: 12px;
+    }
+
+    .info > h2 {
+        font-size: 18px;
+    }
+
+    .portfolio .portfolio-inner h2 {
+        font-size: 20px;
+    }
+
+    .collaboration > h2 {
+        font-size: 20px;
+    }
+}
