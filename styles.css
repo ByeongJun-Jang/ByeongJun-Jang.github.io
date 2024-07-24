@@ -287,13 +287,24 @@ header .navigation a:hover {
     margin-bottom: 16px;
 }
 
+.projects .project-item h5 {
+    color: #65829f;
+}
+
 .projects .project-item .work-list {
-    list-style: none;
+    /* list-style: none; */
 }
 
 .projects .project-item .work-list li {
     font-size: 20px;
+    margin-left: 24px;
     margin-bottom: 8px;
+}
+
+.projects .project-item .work-list .ps{
+    font-size: 16px;
+    color: #65829f;
+    list-style: none;
 }
 
 @media screen and (max-width: 1280px) {
