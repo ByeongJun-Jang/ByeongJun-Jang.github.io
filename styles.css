@@ -60,15 +60,15 @@ p {
     overflow: hidden;
     font-family: "Gowun Dodum", sans-serif;
     width: 100vw;
-    height: calc(100vh - 60px); /* 헤더 높이를 뺀 나머지 영역을 슬라이드 컨테이너가 차지 */
+    height: calc(100vh - 60px);
     position: relative;
     transition: transform 0.5s ease-in-out;
-    margin-top: 60px; /* 헤더 높이만큼의 여백을 추가 */
+    margin-top: 60px;
 }
 
 .slide {
     min-width: 100vw;
-    height: calc(100vh - 60px); /* 헤더 높이를 뺀 나머지 영역을 슬라이드가 차지 */
+    height: calc(100vh - 60px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -115,11 +115,16 @@ header .navigation {
 }
 
 header .navigation a {
-    font-size: 24px;
+    font-size: 32px;
     color: #fff;
     text-decoration: none;
     overflow: hidden;
     transition: color 0.3s ease;
+}
+
+header .navigation a svg {
+    vertical-align: middle;
+    margin-right: 8px;
 }
 
 header .navigation a::after {
@@ -205,16 +210,17 @@ header .navigation a:hover {
     padding: 50px;
 }
 
-.skills-container h2 {
-    font-size: 32px;
-    margin-bottom: 24px;
+.skills-container h1 {
+    font-size: 64px;
+    margin-bottom: 48px;
     text-align: center;
 }
 
 .skills-list {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
     justify-content: center;
-    gap: 50px;
 }
 
 .skill-item {
@@ -222,33 +228,22 @@ header .navigation a:hover {
     position: relative;
 }
 
-.skill-item svg {
-    font-size: 48px;
-}
-
-.skill-item i {
-    font-size: 48px;
-    color: #FFFFFF;
-}
-
 .skill-item p {
     font-size: 24px;
     margin-top: 12px;
-    display: none;
 }
 
-.skill-item:hover p {
-    display: block;
-    position: absolute;
-    top: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #000;
-    padding: 5px 10px;
-    border-radius: 5px;
+.skill-item i  {
+    font-size: 50px;
+    color: #00ffcc;
 }
 
-.portfolio {
+.skill-item svg {
+    font-size: 50px;
+    color: #00ffcc;
+}
+
+.projects {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -259,85 +254,46 @@ header .navigation a:hover {
     overflow-y: auto;
 }
 
-.portfolio .portfolio-inner {
+.projects .projects-inner {
     width: 100%;
     max-width: 1200px;
     padding: 30px;
 }
 
-.portfolio .portfolio-inner h1 {
-    font-size: 36px;
-    color: #00ffcc;
+.projects .projects-inner h1 {
+    font-size: 48px;
+    color: #DEDEDE;
     margin-bottom: 32px;
 }
 
-.portfolio .project-item {
+.projects .project-item {
     margin-bottom: 20px;
 }
 
-.portfolio .project-item h3 {
-    font-size: 28px;
+.projects .project-item h2 {
+    font-size: 40px;
     color: #00aaff;
     margin-bottom: 10px;
 }
 
-.portfolio .project-item p {
+.projects .project-item p {
     font-size: 18px;
     color: #DEDEDE;
 }
 
-.collaboration {
-    padding: 50px;
-}
-
-.collaboration > h2 {
-    font-size: 32px;
-    margin-bottom: 40px;
-    color: #00ffcc;
-}
-
-.collaboration .collaboration-items {
-    display: flex;
-    gap: 20px;
-}
-
-.collaboration .collaboration-item {
-    flex: 1;
-    padding: 20px;
-    background: #222;
-    border-radius: 10px;
-    text-align: center;
-    transition: transform 0.3s ease;
-}
-
-.collaboration .collaboration-item:hover {
-    transform: translateY(-10px);
-}
-
-.collaboration .collaboration-item a {
+.projects .project-item h3 {
     font-size: 24px;
-    color: #00aaff;
-    margin-bottom: 10px;
-    display: block;
+    color: #DEDEDE;
+    margin-bottom: 16px;
 }
 
-.collaboration .collaboration-item p {
-    font-size: 18px;
-    color: #bbb;
-    margin-bottom: 20px;
+.projects .project-item .work-list {
+    list-style: none;
 }
 
-.collaboration .collaboration-item button {
-    padding: 10px 20px;
-    background: #00aaff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.collaboration .collaboration-item button:hover {
-    background: #0088cc;
+.projects .project-item .work-list li {
+    font-size: 16px;
+    margin-bottom: 8px;
 }
 
 @media screen and (max-width: 1280px) {
@@ -357,7 +313,7 @@ header .navigation a:hover {
         font-size: 24px;
     }
 
-    .portfolio .portfolio-inner h2 {
+    .projects .projects-inner h2 {
         font-size: 28px;
     }
 
@@ -383,7 +339,7 @@ header .navigation a:hover {
         font-size: 20px;
     }
 
-    .portfolio .portfolio-inner h2 {
+    .projects .projects-inner h2 {
         font-size: 24px;
     }
 
@@ -422,11 +378,16 @@ header .navigation a:hover {
         font-size: 18px;
     }
 
-    .portfolio .portfolio-inner h2 {
+    .projects .projects-inner h2 {
         font-size: 20px;
     }
 
     .collaboration > h2 {
         font-size: 20px;
+    }
+    
+    .skills-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
 }
