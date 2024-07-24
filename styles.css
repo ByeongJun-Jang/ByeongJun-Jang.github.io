@@ -277,7 +277,7 @@ header .navigation a:hover {
 }
 
 .projects .project-item p {
-    font-size: 18px;
+    font-size: 20px;
     color: #DEDEDE;
 }
 
@@ -292,7 +292,7 @@ header .navigation a:hover {
 }
 
 .projects .project-item .work-list li {
-    font-size: 16px;
+    font-size: 20px;
     margin-bottom: 8px;
 }
 
