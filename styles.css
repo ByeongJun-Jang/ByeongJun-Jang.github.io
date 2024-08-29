@@ -254,6 +254,10 @@ header .navigation a:hover {
     overflow-y: auto;
 }
 
+.projects::-webkit-scrollbar{
+    display: none;
+}
+
 .projects .projects-inner {
     width: 100%;
     max-width: 1200px;
