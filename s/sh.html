@@ -1,0 +1,1332 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>삼화양행</title>
+  <style>
+    :root{
+      --bg:#020617;
+      --card:rgba(255,255,255,.06);
+      --card2:rgba(0,0,0,.28);
+      --line:rgba(255,255,255,.10);
+      --text:#fff;
+      --muted:rgba(255,255,255,.70);
+      --muted2:rgba(148,163,184,.95);
+      --emerald:#34d399;
+      --emerald2:#10b981;
+      --radius:24px;
+      --radius2:18px;
+      --shadow: 0 20px 50px rgba(0,0,0,.45);
+      --max: 1120px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Arial, "Apple SD Gothic Neo", sans-serif;
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit}
+    
+    .ambient{position:fixed;inset:0;z-index:-1;pointer-events:none}
+    .ambient .r1{position:absolute;inset:0;background:radial-gradient(70% 60% at 50% 0%, rgba(16,185,129,.18), transparent 55%)}
+    .ambient .r2{position:absolute;inset:0;background:radial-gradient(50% 45% at 0% 40%, rgba(59,130,246,.10), transparent 55%)}
+    .ambient .r3{position:absolute;inset:0;background:radial-gradient(45% 45% at 100% 30%, rgba(168,85,247,.08), transparent 55%)}
+    .ambient .grid{
+      position:absolute;inset:0;opacity:.22;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+      background-size:36px 36px;
+    }
+
+    .container{max-width:var(--max); margin:0 auto; padding:0 16px}
+    @media (min-width:640px){ .container{padding:0 24px} }
+
+    .pill{
+      display:inline-flex;align-items:center;
+      padding:6px 10px;border-radius:999px;
+      background:rgba(15,23,42,.55);
+      border:1px solid rgba(255,255,255,.10);
+      font-size:12px;color:rgba(255,255,255,.82);
+      gap:8px;
+    }
+    .dot{width:6px;height:6px;border-radius:999px;background:var(--emerald)}
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      border-radius:18px;padding:10px 14px;
+      font-weight:700;font-size:14px;cursor:pointer;
+      border:1px solid transparent;
+      transition:.15s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn-primary{ background:var(--emerald2); color:#052e1b; }
+    .btn-primary:hover{filter:brightness(1.08)}
+    .btn-ghost{
+      background:rgba(255,255,255,.06);
+      border-color:rgba(255,255,255,.10);
+      color:#fff;
+    }
+    .btn-ghost:hover{background:rgba(255,255,255,.10)}
+    .btn-outline{
+      background:rgba(255,255,255,.06);
+      border-color:rgba(255,255,255,.10);
+      color:#fff;
+      font-size:12px;
+      padding:8px 10px;
+      border-radius:14px;
+      font-weight:700;
+    }
+    .btn-outline:hover{background:rgba(255,255,255,.10)}
+
+    header{
+      position:sticky;top:0;z-index:40;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      background:rgba(2,6,23,.70);
+      backdrop-filter: blur(10px);
+    }
+    .header-row{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:12px 0; gap:12px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:10px;
+      padding:6px 8px;border-radius:14px;
+    }
+    .brand:hover{background:rgba(255,255,255,.05)}
+    .logo{
+      width:38px;height:38px;border-radius:18px;
+      border:1px solid var(--line);
+      display:flex;align-items:center;justify-content:center;
+    }
+    .brand .t1{font-size:14px;font-weight:800;line-height:1.1}
+    .brand .t2{font-size:11px;color:rgba(255,255,255,.55);margin-top:2px}
+
+    .nav{display:none;gap:6px;align-items:center}
+    @media (min-width:768px){ .nav{display:flex} }
+
+    .nav-item{
+      position:relative;
+      padding-bottom:10px;
+    }
+    .nav-btn{
+      border:0;background:transparent;color:rgba(255,255,255,.82);
+      padding:10px 12px;border-radius:14px;
+      display:inline-flex;align-items:center;gap:6px;
+      cursor:pointer;font-weight:700;font-size:14px;
+    }
+    .nav-btn:hover{background:rgba(255,255,255,.05);color:#fff}
+    .nav-btn[aria-expanded="true"]{background:rgba(255,255,255,.06);color:#fff}
+
+    .nav-menu{
+      position:absolute;left:0;top:calc(100% + 4px);
+      width:240px;border-radius:18px;overflow:hidden;
+      background:rgba(2,6,23,.96);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:var(--shadow);
+      opacity:0; transform: translateY(-4px);
+      pointer-events:none;
+      transition: opacity .15s ease, transform .15s ease;
+    }
+
+    .nav-item:hover .nav-menu{opacity:1;transform:translateY(0);pointer-events:auto}
+    .nav-item.open .nav-menu{opacity:1;transform:translateY(0);pointer-events:auto}
+    .nav-menu:hover{opacity:1;transform:translateY(0);pointer-events:auto}
+
+    .nav-link{
+      width:100%; text-align:left;
+      padding:12px 14px;
+      background:transparent;border:0;
+      color:rgba(255,255,255,.86);
+      display:flex;align-items:center;justify-content:space-between;
+      cursor:pointer;font-size:14px;
+    }
+    .nav-link:hover{background:rgba(255,255,255,.06)}
+
+    .actions{display:flex;align-items:center;gap:8px}
+    .lang{display:none}
+    @media (min-width:640px){ .lang{display:inline-flex} }
+    .mobileMenuBtn{display:inline-flex}
+    @media (min-width:768px){ .mobileMenuBtn{display:none} }
+    .goLoc{display:none}
+    @media (min-width:640px){ .goLoc{display:inline-flex} }
+
+    .hero{padding:40px 0 20px}
+    .hero-grid{display:grid;gap:18px;padding:4px;}
+    @media (min-width:1024px){ .hero-grid{grid-template-columns: 7fr 5fr; gap:26px} }
+
+    h1{
+      margin:14px 0 0;
+      font-size:34px; line-height:1.12; letter-spacing:-.02em;
+    }
+    @media (min-width:640px){ h1{font-size:42px} }
+    .subline{display:block;color:rgba(255,255,255,.68)}
+    .lead{margin:14px 0 0; max-width:560px; color:rgba(148,163,184,.95); font-size:15px; line-height:1.6}
+    .cta-row{margin-top:24px;display:flex;flex-wrap:wrap;gap:10px}
+    .kpi-grid{margin-top:22px;display:grid;gap:10px}
+    @media (min-width:640px){ .kpi-grid{grid-template-columns:1fr 1fr} }
+
+    .stat{
+      display:flex;align-items:center;gap:12px;
+      padding:12px 14px;border-radius:18px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .stat-ico{
+      width:40px;height:40px;border-radius:14px;
+      background:rgba(0,0,0,.30); border:1px solid rgba(255,255,255,.10);
+      display:flex;align-items:center;justify-content:center;
+      font-weight:900;color:rgba(255,255,255,.75);
+    }
+    .stat .l1{font-size:12px;color:rgba(255,255,255,.60)}
+    .stat .l2{font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px}
+
+    .card{
+      border-radius:28px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      padding:18px;
+      position:relative;
+      overflow:hidden;
+    }
+    .blob{
+      position:absolute;right:-70px;top:-70px;
+      width:240px;height:240px;border-radius:999px;
+      background:rgba(16,185,129,.16);
+      filter: blur(28px);
+    }
+    .card .head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;position:relative}
+    .card .h1{font-size:14px;font-weight:900}
+    .card .h2{font-size:12px;color:rgba(148,163,184,.95);margin-top:4px;line-height:1.5}
+    .quick-list{margin-top:14px;display:grid;gap:10px;position:relative}
+    .qitem{
+      width:100%;text-align:left;
+      display:flex;gap:12px;align-items:flex-start;
+      padding:14px;border-radius:24px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      cursor:pointer;
+      transition:.15s ease;
+    }
+    .qitem:hover{background:rgba(255,255,255,.10)}
+    .qico{
+      width:44px;height:44px;border-radius:18px;
+      background:rgba(0,0,0,.30);border:1px solid rgba(255,255,255,.10);
+      display:flex;align-items:center;justify-content:center;
+      color:rgba(255,255,255,.75);font-weight:900;
+      flex:0 0 auto;
+    }
+    .qtitle{font-weight:900;color:#ffffff;}
+    .qdesc{margin-top:4px;font-size:13px;color:rgba(148,163,184,.95);line-height:1.5}
+    .qmore{margin-top:10px;color:rgba(110,231,183,.95);font-weight:800;font-size:13px;display:inline-flex;gap:6px;align-items:center}
+
+    section{padding:56px 0}
+    .section-title{max-width:var(--max); margin:0 auto; padding:0 16px}
+    @media (min-width:640px){ .section-title{padding:0 24px} }
+    .section-title h2{margin:10px 0 0;font-size:26px;letter-spacing:-.02em}
+    @media (min-width:640px){ .section-title h2{font-size:32px} }
+    .section-title p{margin:10px 0 0;color:rgba(148,163,184,.95);line-height:1.6}
+
+    .biz-grid{display:grid;gap:12px}
+    @media (min-width:768px){ .biz-grid{grid-template-columns:1fr 1fr 1fr} }
+    .biz{
+      border-radius:28px;background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      padding:18px;
+    }
+    .biz-top{display:flex;gap:12px;align-items:flex-start}
+    .biz-ico{
+      width:44px;height:44px;border-radius:18px;
+      background:rgba(0,0,0,.30);border:1px solid rgba(255,255,255,.10);
+      display:flex;align-items:center;justify-content:center;
+      color:rgba(255,255,255,.75);font-weight:900;
+      flex:0 0 auto;
+    }
+    .biz h3{margin:0;font-size:16px;font-weight:900}
+    .biz .bd{margin-top:6px;color:rgba(148,163,184,.95);font-size:13px;line-height:1.6}
+    .tagrow{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+    .biz-actions{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+
+    .grid12{display:grid;gap:12px}
+    @media (min-width:1024px){ .grid12{grid-template-columns:7fr 5fr} }
+    .panel{
+      border-radius:28px;background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      padding:18px;
+    }
+    .panel-head{display:flex;align-items:center;justify-content:space-between}
+    .list{margin-top:12px;display:grid;gap:10px}
+    .rowbtn{
+      width:100%;text-align:left;
+      padding:12px 14px;border-radius:18px;
+      background:rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.10);
+      display:flex;justify-content:space-between;gap:12px;align-items:center;
+      cursor:pointer;
+    }
+    .rowbtn:hover{background:rgba(255,255,255,.06)}
+    .rowbtn .t{font-weight:900;color:#ffffff}
+    .rowbtn .d{font-size:12px;color:rgba(148,163,184,.95);margin-top:4px}
+    .activity{padding:12px 14px;border-radius:18px;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.10)}
+    .activity .t{font-weight:900}
+    .activity .d{margin-top:6px;font-size:12px;color:rgba(148,163,184,.95);line-height:1.55}
+
+    .strip{
+      border-radius:28px;background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      padding:20px;
+      display:flex;flex-direction:column;gap:16px;
+    }
+    @media (min-width:640px){
+      .strip{flex-direction:row;align-items:center;justify-content:space-between}
+    }
+    .chiprow{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .chip{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:10px 12px;border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.22);
+      font-size:12px;color:rgba(148,163,184,.95);
+    }
+
+    footer{border-top:1px solid rgba(255,255,255,.10);padding:34px 0}
+    .foot{display:flex;flex-direction:column;gap:16px}
+    @media (min-width:640px){ .foot{flex-direction:row;align-items:flex-end;justify-content:space-between} }
+    .foot .small{font-size:12px;color:rgba(148,163,184,.95);line-height:1.6}
+
+    .overlay{
+      position:fixed; inset:0; z-index:60;
+      background:rgba(0,0,0,.70);
+      opacity:0; pointer-events:none;
+      transition:.15s ease;
+    }
+    .overlay.open{opacity:1;pointer-events:auto}
+
+    .drawer{
+      position:fixed; top:0; right:0; z-index:70;
+      height:100%;
+      width:min(520px, 92vw);
+      background:#020617;
+      border-left:1px solid rgba(255,255,255,.10);
+      box-shadow:var(--shadow);
+      transform: translateX(20px);
+      opacity:0; pointer-events:none;
+      transition:.18s ease;
+      overflow:auto;
+    }
+    .drawer.open{transform: translateX(0); opacity:1; pointer-events:auto}
+    .drawer .dhead{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:14px 16px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      position:sticky;top:0;background:#020617;z-index:1;
+    }
+    .drawer .dtitle{font-size:14px;font-weight:900}
+    .drawer .dbody{padding:16px}
+
+    /* Mobile */
+    .drawer.left{left:0; right:auto; border-left:none; border-right:1px solid rgba(255,255,255,.10)}
+
+    details{border-radius:18px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.22);padding:12px 14px}
+    details summary{cursor:pointer;font-weight:900}
+    details .ans{margin-top:8px;color:rgba(148,163,184,.95);font-size:12px;line-height:1.55}
+
+    .mt8{margin-top:8px}
+    .mt12{margin-top:12px}
+    .mt16{margin-top:16px}
+    .grid2{display:grid;gap:10px}
+    @media (min-width:640px){ .grid2{grid-template-columns:1fr 1fr} }
+    .box{
+      border-radius:18px;border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.22);
+      padding:14px;
+    }
+    .box .btitle{font-weight:900}
+    .box .bdesc{margin-top:6px;font-size:12px;color:rgba(148,163,184,.95);line-height:1.55}
+  </style>
+</head>
+<body>
+  <div class="ambient">
+    <div class="r1"></div>
+    <div class="r2"></div>
+    <div class="r3"></div>
+    <div class="grid"></div>
+  </div>
+
+  <header>
+    <div class="container header-row">
+      <a class="brand" href="#top" aria-label="삼화양행">
+        <div class="logo"><img src="/shLogo.png" alt="Company Logo" title="회사 로고" style="width: 28px;"></div>
+        <div>
+          <div class="t1">삼화양행</div>
+          <div class="t2">PCB · FA · 장치</div>
+        </div>
+      </a>
+
+      <nav class="nav" aria-label="메인 메뉴" id="desktopNav">
+        <div class="nav-item" data-nav-item>
+          <button class="nav-btn" type="button" data-nav-btn aria-expanded="false">회사소개 <span aria-hidden="true">▾</span></button>
+          <div class="nav-menu" role="menu">
+            <button class="nav-link" data-open="company-overview">회사개요 <span aria-hidden="true">›</span></button>
+            <button class="nav-link" data-open="company-message">CEO 인사말 <span aria-hidden="true">›</span></button>
+            <button class="nav-link" data-open="company-vision">비전 <span aria-hidden="true">›</span></button>
+            <button class="nav-link" data-open="company-history">연혁 <span aria-hidden="true">›</span></button>
+            <button class="nav-link" data-open="company-org">조직도 <span aria-hidden="true">›</span></button>
+            <button class="nav-link" data-open="company-location">찾아오시는 길 <span aria-hidden="true">›</span></button>
+            <button class="nav-link" data-open="company-related">관련회사 <span aria-hidden="true">›</span></button>
+          </div>
+        </div>
+
+        <div class="nav-item" data-nav-item>
+          <button class="nav-btn" type="button" data-nav-btn aria-expanded="false">사업부소개 <span aria-hidden="true">▾</span></button>
+          <div class="nav-menu" role="menu">
+            <button class="nav-link" data-open="biz-pcb">PCB사업부 <span aria-hidden="true">›</span></button>
+            <button class="nav-link" data-open="biz-fa">FA사업부 <span aria-hidden="true">›</span></button>
+            <button class="nav-link" data-open="biz-eq">장치영업부 <span aria-hidden="true">›</span></button>
+          </div>
+        </div>
+
+        <div class="nav-item" data-nav-item>
+          <button class="nav-btn" type="button" data-nav-btn aria-expanded="false">제품소개 <span aria-hidden="true">▾</span></button>
+          <div class="nav-menu" role="menu">
+            <button class="nav-link" data-open="product-pcb">PCB <span aria-hidden="true">›</span></button>
+            <button class="nav-link" data-open="product-fa">FA <span aria-hidden="true">›</span></button>
+            <button class="nav-link" data-open="product-brochure">브로셔/카탈로그 <span aria-hidden="true">›</span></button>
+          </div>
+        </div>
+
+        <div class="nav-item" data-nav-item>
+          <button class="nav-btn" type="button" data-nav-btn aria-expanded="false">고객센터 <span aria-hidden="true">▾</span></button>
+          <div class="nav-menu" role="menu">
+            <button class="nav-link" data-route="/notice">공지사항 <span aria-hidden="true">›</span></button>
+            <button class="nav-link" data-open="cs-activity">주요활동 <span aria-hidden="true">›</span></button>
+            <button class="nav-link" data-open="cs-faq">FAQ <span aria-hidden="true">›</span></button>
+          </div>
+        </div>
+      </nav>
+
+      <div class="actions">
+        <button class="btn btn-ghost lang" id="btnLang" type="button" title="Language (prototype)">🌐 <span id="langText">KOR</span></button>
+        <button class="btn btn-ghost mobileMenuBtn" id="btnMobileMenu" type="button">☰ 메뉴</button>
+        <button class="btn btn-primary goLoc" id="btnGoLoc" type="button">오시는 길 →</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="container hero">
+      <div class="hero-grid">
+        <div>
+          <div class="pill"><span class="dot"></span>To be the Best Partner in Core Components</div>
+          <h1>
+            기술 기반 영업과 지원,
+            <span class="subline">PCB · FA · 장치영업</span>
+          </h1>
+          <p class="lead">
+            회사 회사 소개 소개 간략 간략
+          </p>
+
+          <div class="cta-row">
+            <button class="btn btn-primary" data-open="company-overview" type="button">회사 소개 →</button>
+            <button class="btn btn-ghost" data-scroll="biz" type="button">사업부 보기 ›</button>
+            <button class="btn btn-ghost" type="button" onclick="setRoute('/notice')">공지 확인 ›</button>
+          </div>
+
+          <div class="kpi-grid">
+            <div class="stat">
+              <div class="stat-ico">🏁</div>
+              <div>
+                <div class="l1">Established</div>
+                <div class="l2">1979</div>
+              </div>
+            </div>
+            <div class="stat">
+              <div class="stat-ico">🌐</div>
+              <div>
+                <div class="l1">Business</div>
+                <div class="l2">PCB · FA · Trading</div>
+              </div>
+            </div>
+            <div class="stat">
+              <div class="stat-ico">🛡️</div>
+              <div>
+                <div class="l1">Service</div>
+                <div class="l2">Sales · Support · Maintenance</div>
+              </div>
+            </div>
+            <div class="stat">
+              <div class="stat-ico">👥</div>
+              <div>
+                <div class="l1">Partners</div>
+                <div class="l2">Global suppliers</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <div class="blob"></div>
+            <div class="head">
+              <div>
+                <div class="h1">바로가기</div>
+              </div>
+              <div class="pill">Quick Links</div>
+            </div>
+
+            <div class="quick-list">
+              <button class="qitem" data-open="company-overview" type="button">
+                <div class="qico">🏢</div>
+                <div>
+                  <div class="qtitle">회사개요</div>
+                  <div class="qdesc">사업영역/거점/핵심역량</div>
+                  <div class="qmore">자세히 보기 <span aria-hidden="true">›</span></div>
+                </div>
+              </button>
+
+              <button class="qitem" data-scroll="biz" type="button">
+                <div class="qico">🏭</div>
+                <div>
+                  <div class="qtitle">사업부소개</div>
+                  <div class="qdesc">PCB·FA·장치영업</div>
+                  <div class="qmore">이동 <span aria-hidden="true">›</span></div>
+                </div>
+              </button>
+
+              <button class="qitem" type="button" onclick="setRoute('/notice')">
+                <div class="qico">📰</div>
+                <div>
+                  <div class="qtitle">공지사항</div>
+                  <div class="qdesc">소식/공지 확인</div>
+                  <div class="qmore">이동 <span aria-hidden="true">›</span></div>
+                </div>
+              </button>
+
+              <button class="qitem" data-open="company-location" type="button">
+                <div class="qico">📍</div>
+                <div>
+                  <div class="qtitle">찾아오시는 길</div>
+                  <div class="qdesc">본사/사업장 안내</div>
+                  <div class="qmore">자세히 보기 <span aria-hidden="true">›</span></div>
+                </div>
+              </button>
+
+              <div class="box mt12">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+                  <div class="btitle">자료실</div>
+                  <div class="pill">PDF</div>
+                </div>
+                <div class="bdesc mt8">
+                  이런 자료들이 있슴다
+                </div>
+                <div class="cta-row mt12">
+                  <button class="btn btn-primary" data-open="product-brochure" type="button">회사소개서 다운로드 →</button>
+                  <button class="btn btn-ghost" data-open="cs-faq" type="button">FAQ ›</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <section id="biz">
+      <div class="section-title">
+        <div class="pill"><span class="dot"></span>Business Areas</div>
+        <h2>사업부 소개</h2>
+        <p>PCB/FA/장치영업을 간략하게 보여주기이</p>
+      </div>
+
+      <div class="container mt16">
+        <div class="biz-grid">
+          <div class="biz">
+            <div class="biz-top">
+              <div class="biz-ico">🔬</div>
+              <div>
+                <h3>PCB사업부</h3>
+                <div class="bd">PCB ~~~~~~~~~~~~~</div>
+              </div>
+            </div>
+            <div class="tagrow">
+              <span class="pill">PCB Equipment</span>
+              <span class="pill">Service</span>
+              <span class="pill">Maintenance</span>
+            </div>
+            <div class="biz-actions">
+              <button class="btn btn-outline" data-open="biz-pcb" type="button">상세 보기</button>
+              <button class="btn btn-outline" data-open="product-brochure" type="button">관련 자료</button>
+            </div>
+          </div>
+
+          <div class="biz">
+            <div class="biz-top">
+              <div class="biz-ico">🛠️</div>
+              <div>
+                <h3>FA사업부</h3>
+                <div class="bd">FA ~~~~~~~~~~~~~</div>
+              </div>
+            </div>
+            <div class="tagrow">
+              <span class="pill">Automation</span>
+              <span class="pill">Integration</span>
+              <span class="pill">Support</span>
+            </div>
+            <div class="biz-actions">
+              <button class="btn btn-outline" data-open="biz-fa" type="button">상세 보기</button>
+              <button class="btn btn-outline" data-open="product-brochure" type="button">관련 자료</button>
+            </div>
+          </div>
+
+          <div class="biz">
+            <div class="biz-top">
+              <div class="biz-ico">🏭</div>
+              <div>
+                <h3>장치영업부</h3>
+                <div class="bd">장치 ~~~~~~~~~~~~~</div>
+              </div>
+            </div>
+            <div class="tagrow">
+              <span class="pill">Industrial</span>
+              <span class="pill">Trading</span>
+              <span class="pill">Partners</span>
+            </div>
+            <div class="biz-actions">
+              <button class="btn btn-outline" data-open="biz-eq" type="button">상세 보기</button>
+              <button class="btn btn-outline" data-open="product-brochure" type="button">관련 자료</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cs-notice">
+      <div class="section-title">
+        <div class="pill"><span class="dot"></span>Customer Center</div>
+        <h2>공지사항 & 주요활동</h2>
+        <p>삼화 공지/활동/자료</p>
+      </div>
+
+      <div class="container mt16">
+        <div class="grid12">
+          <div class="panel">
+            <div class="panel-head">
+              <div style="font-weight:900">공지사항</div>
+              <button class="btn btn-outline" type="button" onclick="setRoute('/notice')">더보기</button>
+            </div>
+            <div class="list">
+              <button class="rowbtn" type="button" onclick="setRoute('/notice/1')">
+                <div style="min-width:0">
+                  <div class="t">홈페이지 리뉴얼 안내</div>
+                  <div class="d">0000-00-00</div>
+                </div>
+                <span aria-hidden="true" style="opacity:.6">›</span>
+              </button>
+              <button class="rowbtn" type="button" onclick="setRoute('/notice/2')">
+                <div style="min-width:0">
+                  <div class="t">설 연휴 고객센터 운영 안내</div>
+                  <div class="d">0000-00-00</div>
+                </div>
+                <span aria-hidden="true" style="opacity:.6">›</span>
+              </button>
+              <button class="rowbtn" type="button" onclick="setRoute('/notice/3')">
+                <div style="min-width:0">
+                  <div class="t">전시회 참가 소식</div>
+                  <div class="d">0000-00-00</div>
+                </div>
+                <span aria-hidden="true" style="opacity:.6">›</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <div style="font-weight:900">주요활동</div>
+              <button class="btn btn-outline" data-open="cs-activity" type="button">더보기</button>
+            </div>
+            <div class="list">
+              <div class="activity">
+                <div class="t">전시회/세미나 참가</div>
+                <div class="d">0000-00-00</div>
+              </div>
+              <div class="activity">
+                <div class="t">기술지원 사례</div>
+                <div class="d">0000-00-00</div>
+              </div>
+              <div class="activity">
+                <div class="t">파트너 협력</div>
+                <div class="d">0000-00-00</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="strip">
+          <div>
+            <div style="font-weight:900;font-size:16px">연락처 / 오시는 길</div>
+            <div class="lead" style="margin:8px 0 0;max-width:720px">
+              전화 전화 / 주소 주소
+            </div>
+            <div class="chiprow">
+              <div class="chip">📞 00-0000-0000</div>
+              <div class="chip">📄 000@00000.com</div>
+            </div>
+          </div>
+          <div class="cta-row" style="margin:0">
+            <button class="btn btn-primary" data-open="company-location" type="button">찾아오시는 길 →</button>
+            <button class="btn btn-ghost" data-open="company-overview" type="button">회사개요 ›</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container foot">
+        <div>
+          <div style="font-weight:900">삼화양행</div>
+          <div class="small mt8">주소 주소 주소</div>
+          <div class="small">Copyright © Samhwa Yanghaeng. All rights reserved.</div>
+        </div>
+        <div class="cta-row" style="margin:0">
+          <button class="btn btn-outline" type="button" onclick="alert('(프로토타입) 개인정보처리방침')">개인정보처리방침</button>
+          <button class="btn btn-outline" type="button" onclick="alert('(프로토타입) 이용약관')">이용약관</button>
+          <button class="btn btn-primary" type="button" onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'})">맨 위로</button>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <div class="overlay" id="overlay"></div>
+
+  <aside class="drawer" id="detailDrawer" aria-hidden="true">
+    <div class="dhead">
+      <div class="dtitle" id="detailTitle">상세</div>
+      <button class="btn btn-outline" id="btnCloseDetail" type="button">닫기</button>
+    </div>
+    <div class="dbody" id="detailBody"></div>
+  </aside>
+
+  <aside class="drawer left" id="mobileDrawer" aria-hidden="true">
+    <div class="dhead">
+      <div class="dtitle">메뉴</div>
+      <button class="btn btn-outline" id="btnCloseMobile" type="button">닫기</button>
+    </div>
+    <div class="dbody" id="mobileBody"></div>
+  </aside>
+
+  <script>
+
+    // ===== Data =====
+    const NAV = [
+      { label: "회사소개", items: [
+        ["company-overview","회사개요"],
+        ["company-message","CEO 인사말"],
+        ["company-vision","비전"],
+        ["company-history","연혁"],
+        ["company-org","조직도"],
+        ["company-location","찾아오시는 길"],
+        ["company-related","관련회사"],
+      ]},
+      { label: "사업부소개", items: [
+        ["biz-pcb","PCB사업부"],
+        ["biz-fa","FA사업부"],
+        ["biz-eq","장치영업부"],
+      ]},
+      { label: "제품소개", items: [
+        ["product-pcb","PCB"],
+        ["product-fa","FA"],
+        ["product-brochure","브로셔/카탈로그"],
+      ]},
+      { label: "고객센터", items: [
+        ["cs-notice","공지사항"],
+        ["cs-activity","주요활동"],
+        ["cs-faq","FAQ"],
+      ]},
+    ];
+
+    // 공지 데이터
+    const NOTICE_POSTS = [
+      { id: 1, title: "홈페이지 리뉴얼 안내", date: "0000-00-00", body: "내용 내용 내용" },
+      { id: 2, title: "설 연휴 고객센터 운영 안내", date: "0000-00-00", body: "내애애애애용" },
+      { id: 3, title: "전시회 참가 소식", date: "0000-00-00", body: "내애애애애애애ㅐ애앵용" },
+    ];
+
+    const SECTION_TITLE = (key) => {
+      for (const top of NAV){
+        for (const it of top.items){
+          if (it[0] === key) return `${top.label} · ${it[1]}`;
+        }
+      }
+      return "상세";
+    };
+
+    const overlay = document.getElementById("overlay");
+    const detailDrawer = document.getElementById("detailDrawer");
+    const detailTitle = document.getElementById("detailTitle");
+    const detailBody = document.getElementById("detailBody");
+    const btnCloseDetail = document.getElementById("btnCloseDetail");
+
+    const mobileDrawer = document.getElementById("mobileDrawer");
+    const mobileBody = document.getElementById("mobileBody");
+    const btnCloseMobile = document.getElementById("btnCloseMobile");
+
+    function openOverlay(){
+      overlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+    function closeOverlayIfNone(){
+      const anyOpen = detailDrawer.classList.contains("open") || mobileDrawer.classList.contains("open");
+      if (!anyOpen){
+        overlay.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+    }
+
+    function openDetail(key){
+      detailTitle.textContent = SECTION_TITLE(key);
+      detailBody.innerHTML = renderPanel(key);
+      detailDrawer.classList.add("open");
+      detailDrawer.setAttribute("aria-hidden","false");
+      openOverlay();
+    }
+    function closeDetail(){
+      detailDrawer.classList.remove("open");
+      detailDrawer.setAttribute("aria-hidden","true");
+      closeOverlayIfNone();
+    }
+
+    function openMobile(){
+      mobileDrawer.classList.add("open");
+      mobileDrawer.setAttribute("aria-hidden","false");
+      openOverlay();
+    }
+    function closeMobile(){
+      mobileDrawer.classList.remove("open");
+      mobileDrawer.setAttribute("aria-hidden","true");
+      closeOverlayIfNone();
+    }
+
+    overlay.addEventListener("click", () => {
+      closeDetail();
+      closeMobile();
+      closeAllNavMenus();
+    });
+    btnCloseDetail.addEventListener("click", closeDetail);
+    btnCloseMobile.addEventListener("click", closeMobile);
+
+    function scrollToId(id){
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({behavior:"smooth", block:"start"});
+    }
+
+    function escapeHtml(s){
+      return String(s ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function setRoute(path){
+      if (!path.startsWith("/")) path = "/" + path;
+      location.hash = "#" + path;
+    }
+    window.setRoute = setRoute;
+
+    function parseRoute(){
+      const h = (location.hash || "").replace(/^#\/?/, "");
+      const parts = h.split("/").filter(Boolean);
+      return parts;
+    }
+
+    function renderNoticeList(){
+      return `
+        <h3 style="margin:0;font-size:18px;font-weight:900">공지사항</h3>
+        <div class="box mt12" style="padding:0;overflow:hidden;border-radius:28px">
+          <div style="display:grid;grid-template-columns: 1fr 120px;gap:0;
+                      padding:10px 12px;background:rgba(255,255,255,.06);
+                      border-bottom:1px solid rgba(255,255,255,.10);
+                      font-size:12px;color:rgba(255,255,255,.70)">
+            <div>제목</div>
+            <div style="text-align:right">일자</div>
+          </div>
+          ${NOTICE_POSTS.map(p => `
+            <button class="rowbtn" type="button"
+                    onclick="setRoute('/notice/${p.id}')"
+                    style="border:0;border-bottom:1px solid rgba(255,255,255,.10);border-radius:0;background:transparent">
+              <div style="min-width:0">
+                <div class="t">${escapeHtml(p.title)}</div>
+              </div>
+              <div style="font-size:12px;color:rgba(148,163,184,.95)">${escapeHtml(p.date)}</div>
+            </button>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function renderNoticeDetail(post){
+      if(!post){
+        return `
+          <h3 style="margin:0;font-size:18px;font-weight:900">공지사항</h3>
+          <div class="box mt12"><div class="bdesc">존재하지 않는 글입니다.</div></div>
+          <div class="cta-row mt12">
+            <button class="btn btn-ghost" type="button" onclick="setRoute('/notice')">목록으로</button>
+          </div>
+        `;
+      }
+
+      return `
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+          <div>
+            <h3 style="margin:0;font-size:18px;font-weight:900">${escapeHtml(post.title)}</h3>
+            <div class="bdesc mt8">${escapeHtml(post.date)}</div>
+          </div>
+          <button class="btn btn-outline" type="button" onclick="setRoute('/notice')">목록</button>
+        </div>
+
+        <div class="box mt12" style="border-radius:28px">
+          <div class="bdesc" style="white-space:pre-wrap;line-height:1.7">
+            ${escapeHtml(post.body)}
+          </div>
+        </div>
+
+        <div class="cta-row mt12">
+          <button class="btn btn-ghost" type="button" onclick="setRoute('/notice')">목록으로</button>
+          <button class="btn btn-primary" type="button" onclick="alert('(프로토타입) 첨부파일/다운로드 연결')">첨부파일(예시)</button>
+        </div>
+      `;
+    }
+
+    function renderRoute(){
+      const parts = parseRoute();
+      if (parts.length === 0) return;
+
+      if (parts[0] === "notice" && parts.length === 1){
+        openDetail("cs-notice");
+        detailTitle.textContent = "고객센터 · 공지사항";
+        detailBody.innerHTML = renderNoticeList();
+        return;
+      }
+
+      if (parts[0] === "notice" && parts[1]){
+        const id = Number(parts[1]);
+        const post = NOTICE_POSTS.find(p => p.id === id);
+        openDetail("cs-notice");
+        detailTitle.textContent = "고객센터 · 공지사항";
+        detailBody.innerHTML = renderNoticeDetail(post);
+        return;
+      }
+    }
+
+    window.addEventListener("hashchange", renderRoute);
+    window.addEventListener("load", renderRoute);
+
+    const desktopNav = document.getElementById("desktopNav");
+
+    function closeAllNavMenus(){
+      document.querySelectorAll("[data-nav-item].open").forEach(it=>{
+        it.classList.remove("open");
+        const btn = it.querySelector("[data-nav-btn]");
+        if (btn) btn.setAttribute("aria-expanded","false");
+      });
+    }
+
+    function toggleNavMenu(navItem){
+      const isOpen = navItem.classList.contains("open");
+      closeAllNavMenus();
+      if (!isOpen){
+        navItem.classList.add("open");
+        const btn = navItem.querySelector("[data-nav-btn]");
+        if (btn) btn.setAttribute("aria-expanded","true");
+      }
+    }
+
+    desktopNav?.addEventListener("click", (e)=>{
+      const btn = e.target.closest("[data-nav-btn]");
+      const link = e.target.closest(".nav-link");
+      if (btn){
+        e.preventDefault();
+        const item = btn.closest("[data-nav-item]");
+        if (item) toggleNavMenu(item);
+        return;
+      }
+      if (link){
+        const route = link.getAttribute("data-route");
+        const openKey = link.getAttribute("data-open");
+        closeAllNavMenus();
+
+        if (route){
+          setRoute(route);
+          return;
+        }
+        if (openKey){
+          if (openKey === "cs-notice"){
+            setRoute("/notice");
+          } else {
+            openDetail(openKey);
+          }
+        }
+      }
+    });
+
+    document.addEventListener("click", (e)=>{
+      const inNav = e.target.closest("#desktopNav");
+      if (!inNav) closeAllNavMenus();
+    });
+
+    document.addEventListener("keydown", (e)=>{
+      if (e.key === "Escape"){
+        closeAllNavMenus();
+        closeDetail();
+        closeMobile();
+      }
+    });
+
+    document.addEventListener("click", (e) => {
+      const t = e.target.closest("[data-open],[data-scroll],[data-route]");
+      if (!t) return;
+
+      const route = t.getAttribute("data-route");
+      const openKey = t.getAttribute("data-open");
+      const scrollKey = t.getAttribute("data-scroll");
+
+      if (route){
+        setRoute(route);
+        return;
+      }
+
+      if (openKey){
+        if (openKey === "cs-notice"){
+          setRoute("/notice");
+        } else {
+          openDetail(openKey);
+        }
+        return;
+      }
+
+      if (scrollKey){
+        scrollToId(scrollKey);
+      }
+    });
+
+    document.getElementById("btnGoLoc").addEventListener("click", () => openDetail("company-location"));
+    document.getElementById("btnMobileMenu").addEventListener("click", openMobile);
+
+    const btnLang = document.getElementById("btnLang");
+    const langText = document.getElementById("langText");
+    btnLang.addEventListener("click", () => {
+      langText.textContent = (langText.textContent === "KOR") ? "ENG" : "KOR";
+    });
+
+    function renderMobileMenu(){
+      const parts = [];
+      parts.push(`
+        <div class="box">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+            <div class="btitle">언어</div>
+            <button class="btn btn-primary" type="button" id="mobileLang">${langText.textContent}</button>
+          </div>
+          <div class="bdesc mt8">테스트 토글</div>
+        </div>
+      `);
+
+      for (const top of NAV){
+        parts.push(`
+          <div class="box mt12" style="border-radius:24px">
+            <div class="btitle">${top.label}</div>
+            <div class="mt12" style="display:grid;gap:8px">
+              ${top.items.map(it => {
+                if (it[0] === "cs-notice"){
+                  return `
+                    <button class="rowbtn" type="button" onclick="setRoute('/notice'); closeMobile()">
+                      <div class="t">${it[1]}</div>
+                      <span aria-hidden="true" style="opacity:.6">›</span>
+                    </button>
+                  `;
+                }
+                return `
+                  <button class="rowbtn" type="button" data-open="${it[0]}" onclick="closeMobile()">
+                    <div class="t">${it[1]}</div>
+                    <span aria-hidden="true" style="opacity:.6">›</span>
+                  </button>
+                `;
+              }).join("")}
+            </div>
+          </div>
+        `);
+      }
+
+      mobileBody.innerHTML = parts.join("");
+      const ml = document.getElementById("mobileLang");
+      if (ml){
+        ml.addEventListener("click", () => {
+          btnLang.click();
+          ml.textContent = langText.textContent;
+        });
+      }
+    }
+    renderMobileMenu();
+
+    const obs = new MutationObserver(() => renderMobileMenu());
+    obs.observe(langText, { childList:true });
+
+    // ===== Panel content render (회사/사업부/제품/고객센터 등) =====
+    function renderPanel(section){
+      // 회사소개
+      if (section === "company-message"){
+        return `
+          <h3 style="margin:0;font-size:18px;font-weight:900">CEO 인사말</h3>
+          <p class="lead" style="margin-top:10px">
+            CEO 인사말
+          </p>
+          <div class="box mt12">
+            <div class="bdesc">
+              삼화 삼화
+            </div>
+          </div>
+        `;
+      }
+
+      if (section === "company-vision"){
+        const items = ["기술 중심의 고객 가치","글로벌 파트너십 강화","신뢰 가능한 지원 체계","지속 가능한 성장"];
+        return `
+          <h3 style="margin:0;font-size:18px;font-weight:900">비전</h3>
+          <div class="grid2 mt12">
+            ${items.map(v=>`
+              <div class="box">
+                <div class="btitle">${v}</div>
+                <div class="bdesc">비젼임다.</div>
+              </div>
+            `).join("")}
+          </div>
+        `;
+      }
+
+      if (section === "company-history"){
+        const rows = [
+          ["1979","회사 설립"],
+          ["2000s","사업장/공장 확장(예시)"],
+          ["2010s","해외 거점/협력 강화(예시)"],
+          ["2020s","신규 공장/사업 확대(예시)"],
+        ];
+        return `
+          <h3 style="margin:0;font-size:18px;font-weight:900">연혁</h3>
+          <div class="mt12" style="display:grid;gap:10px">
+            ${rows.map(x=>`
+              <div class="box" style="display:flex;gap:10px;align-items:flex-start">
+                <span class="pill">${x[0]}</span>
+                <div>
+                  <div style="font-weight:900">${x[1]}</div>
+                  <div class="bdesc">이렇게 발전하구 있어요</div>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+        `;
+      }
+
+      if (section === "company-org"){
+        const teams = ["PCB사업부","FA사업부","장치영업부","관리/지원"];
+        return `
+          <h3 style="margin:0;font-size:18px;font-weight:900">조직도</h3>
+          <div class="box mt12" style="border-radius:28px">
+            <div class="grid2">
+              ${teams.map(t=>`
+                <div class="box" style="background:rgba(255,255,255,.05)">
+                  <div class="btitle">${t}</div>
+                  <div class="bdesc">간단 요약</div>
+                </div>
+              `).join("")}
+            </div>
+            <div class="bdesc mt12">
+              조직은 상세하게 이렇게 어쩌구,,
+            </div>
+          </div>
+        `;
+      }
+
+      if (section === "company-location"){
+        return `
+          <h3 style="margin:0;font-size:18px;font-weight:900">찾아오시는 길</h3>
+          <div class="box mt12" style="border-radius:28px">
+            <div class="grid2">
+              <div class="box" style="background:rgba(255,255,255,.05)">
+                <div class="btitle">본사</div>
+                <div class="bdesc">서울 금천구</div>
+                <div class="bdesc mt8">📞 00-0000-0000</div>
+              </div>
+              <div class="box" style="background:rgba(255,255,255,.05)">
+                <div class="btitle">사업장</div>
+                <div class="bdesc">사업장 주소</div>
+                <div class="bdesc mt8">📍 지도</div>
+              </div>
+            </div>
+            <div class="box mt12" style="background:rgba(255,255,255,.05)">
+              <div class="bdesc">찾아오시는 길 임다</div>
+            </div>
+          </div>
+        `;
+      }
+
+      if (section === "company-related"){
+        const companies = ["(주)삼화전자","QSI","Zettasys(일본)","인터파워"];
+        return `
+          <h3 style="margin:0;font-size:18px;font-weight:900">관련회사</h3>
+          <div class="grid2 mt12">
+            ${companies.map(c=>`
+              <div class="box" style="border-radius:28px">
+                <div class="btitle">${c}</div>
+                <div class="bdesc">회사 소개yo..</div>
+              </div>
+            `).join("")}
+          </div>
+        `;
+      }
+
+      if (section === "company-overview"){
+        const blocks = ["사업영역","거점(본사/사업장)","핵심역량","파트너/대리점"];
+        return `
+          <h3 style="margin:0;font-size:18px;font-weight:900">회사개요</h3>
+          <p class="lead" style="margin-top:10px">
+            삼화양행은 ...
+          </p>
+          <div class="grid2 mt12">
+            ${blocks.map(b=>`
+              <div class="box">
+                <div class="btitle">${b}</div>
+                <div class="bdesc">요약 .,.</div>
+              </div>
+            `).join("")}
+          </div>
+        `;
+      }
+
+      if (section.startsWith("biz-")){
+        const name = {
+          "biz-pcb":"PCB사업부",
+          "biz-fa":"FA사업부",
+          "biz-eq":"장치영업부"
+        }[section] || "사업부";
+        const blocks = [
+          ["핵심 서비스","영업/기술지원/유지보수"],
+          ["대표 라인업","제품군"],
+          ["적용 분야","고객군/산업군"],
+          ["지원 프로세스","문의→검토→제안→설치→지원"],
+          ["자료","브로셔/카탈로그 다운로드"]
+        ];
+        return `
+          <h3 style="margin:0;font-size:18px;font-weight:900">${name}</h3>
+          <p class="lead" style="margin-top:10px">
+            사업부는 ..............
+          </p>
+          <div class="mt12" style="display:grid;gap:10px">
+            ${blocks.map(x=>`
+              <div class="box" style="border-radius:28px">
+                <div class="btitle">${x[0]}</div>
+                <div class="bdesc">${x[1]}</div>
+              </div>
+            `).join("")}
+          </div>
+          <div class="cta-row mt12">
+            <button class="btn btn-primary" data-open="product-brochure" type="button">자료 보기 →</button>
+            <button class="btn btn-ghost" data-open="company-location" type="button">오시는 길 ›</button>
+          </div>
+        `;
+      }
+
+      if (section.startsWith("product-")){
+        const title = section === "product-brochure" ? "브로셔/카탈로그" : (section === "product-fa" ? "FA" : "PCB");
+        const cards = ["대표 라인업","적용 분야","자료 다운로드","기술지원 범위"];
+        return `
+          <h3 style="margin:0;font-size:18px;font-weight:900">${title}</h3>
+          <p class="lead" style="margin-top:10px">
+            제품은 ........
+          </p>
+          <div class="grid2 mt12">
+            ${cards.map(c=>`
+              <div class="box" style="border-radius:28px">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+                  <div class="btitle">${c}</div>
+                  ${section==="product-brochure" && c==="자료 다운로드" ? `<span class="pill">PDF</span>`:""}
+                </div>
+                <div class="bdesc">콘텐츠 블록(샘플)</div>
+              </div>
+            `).join("")}
+          </div>
+          <div class="cta-row mt12">
+            <button class="btn btn-primary" type="button" onclick="alert('(프로토타입) 다운로드 연결')">회사소개서 다운로드 →</button>
+            <button class="btn btn-ghost" type="button" onclick="setRoute('/notice')">공지사항 보기 ›</button>
+          </div>
+        `;
+      }
+
+      if (section === "cs-activity"){
+        const acts = [
+          ["전시회/세미나 참가","파트너사와 공동 데모 및 기술 소개"],
+          ["기술지원 사례","현장 설치/셋업/유지보수 프로세스"],
+          ["파트너 협력","해외 제조사와 공식 협력"],
+        ];
+        return `
+          <h3 style="margin:0;font-size:18px;font-weight:900">주요활동</h3>
+          <div class="mt12" style="display:grid;gap:10px">
+            ${acts.map(a=>`
+              <div class="box" style="border-radius:28px">
+                <div class="btitle">${a[0]}</div>
+                <div class="bdesc">${a[1]}</div>
+              </div>
+            `).join("")}
+          </div>
+        `;
+      }
+
+      if (section === "cs-faq"){
+        const faqs = [
+          ["기술지원 범위는 어디까지인가요?","문의 주세요 ㅎ;"],
+          ["자료(카탈로그/스펙)는 어디서 받나요?","ㅎㅎ;"],
+          ["거점(본사/사업장) 안내","어서옵숑"],
+        ];
+        return `
+          <h3 style="margin:0;font-size:18px;font-weight:900">FAQ</h3>
+          <div class="mt12" style="display:grid;gap:10px">
+            ${faqs.map(f=>`
+              <details>
+                <summary>${f[0]}</summary>
+                <div class="ans">${f[1]}</div>
+              </details>
+            `).join("")}
+          </div>
+        `;
+      }
+
+      if (section === "cs-notice"){
+        return `
+          <h3 style="margin:0;font-size:18px;font-weight:900">공지사항</h3>
+          <div class="box mt12">
+            <div class="bdesc">공지사항</div>
+          </div>
+          <div class="cta-row mt12">
+            <button class="btn btn-primary" type="button" onclick="setRoute('/notice')">공지 목록 열기 →</button>
+          </div>
+        `;
+      }
+
+      return `<div class="box"><div class="btitle">준비중</div><div class="bdesc">콘텐츠 ready...</div></div>`;
+    }
+
+    window.closeMobile = closeMobile;
+  </script>
+</body>
+</html>
