@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>장연우 100일 축하해요! 🎉</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            overflow-x: hidden;
+        }
+
+        /* 헤더 */
+        .header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.5) 100%);
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            color: #ff6b9d;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: bounce 2s infinite;
+        }
+
+        .header .subtitle {
+            font-size: 1.5em;
+            color: #ff8fab;
+            margin-bottom: 20px;
+        }
+
+        .header .date {
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* 풍선 애니메이션 */
+        .balloon {
+            position: absolute;
+            font-size: 3em;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        .balloon:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .balloon:nth-child(2) { left: 30%; animation-delay: 1s; }
+        .balloon:nth-child(3) { left: 50%; animation-delay: 2s; }
+        .balloon:nth-child(4) { left: 70%; animation-delay: 3s; }
+        .balloon:nth-child(5) { left: 90%; animation-delay: 4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        /* 컨테이너 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* 섹션 공통 스타일 */
+        .section {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 2em;
+            color: #ff6b9d;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b9d, #ffc3a0);
+            border-radius: 10px;
+        }
+
+        /* D-Day 카운터 */
+        .dday-counter {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .counter-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            min-width: 150px;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .counter-number {
+            font-size: 3em;
+            font-weight: bold;
+            display: block;
+        }
+
+        .counter-label {
+            font-size: 1.1em;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+
+        /* 타임라인 */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #ff6b9d, #ffc3a0);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 30px;
+        }
+
+        .timeline-item::before {
+            content: '🎈';
+            position: absolute;
+            left: -28px;
+            top: 0;
+            font-size: 1.5em;
+            background: white;
+            border-radius: 50%;
+            padding: 5px;
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: #ff6b9d;
+            margin-bottom: 5px;
+        }
+
+        .timeline-content {
+            background: #fff8f0;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 3px solid #ff6b9d;
+        }
+
+        /* 성장 기록 */
+        .growth-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        /* 사진 갤러리 */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .photo-placeholder {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .photo-placeholder:hover {
+            transform: scale(1.05);
+        }
+
+        .photo-caption {
+            font-size: 0.3em;
+            margin-top: 10px;
+            color: #666;
+        }
+
+        /* 메시지 카드 */
+        .message-box {
+            background: linear-gradient(135deg, #fdeb71, #f8d800);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(248, 216, 0, 0.3);
+        }
+
+        .message-text {
+            font-size: 1.5em;
+            line-height: 1.8;
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* 발자국 장식 */
+        .footprint {
+            display: inline-block;
+            margin: 0 10px;
+            animation: step 2s infinite;
+        }
+
+        @keyframes step {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .section {
+                padding: 25px;
+            }
+            
+            .counter-box {
+                min-width: 120px;
+                padding: 20px;
+            }
+            
+            .counter-number {
+                font-size: 2em;
+            }
+        }
+
+        /* 스크롤 애니메이션 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="balloon">🎈</div>
+        <div class="balloon">🎀</div>
+        <div class="balloon">🎉</div>
+        <div class="balloon">💝</div>
+        <div class="balloon">⭐</div>
+        
+        <h1>장연우 100일 축하해요!</h1>
+        <div class="subtitle">건강하게 자라준 우리 연우에게 💕</div>
+        <div class="date">2024년 11월 3일 - 2025년 2월 10일</div>
+    </div>
+
+    <div class="container">
+        <!-- D-Day 카운터 -->
+        <div class="section fade-in">
+            <h2 class="section-title">🎂 우리 아기와 함께한 시간</h2>
+            <div class="dday-counter">
+                <div class="counter-box">
+                    <span class="counter-number">0</span>
+                    <span class="counter-label">일</span>
+                </div>
+                <div class="counter-box">
+                    <span class="counter-number">0</span>
+                    <span class="counter-label">시간</span>
+                </div>
+                <div class="counter-box">
+                    <span class="counter-number">0</span>
+                    <span class="counter-label">분</span>
+                </div>
+                <div class="counter-box">
+                    <span class="counter-number">∞</span>
+                    <span class="counter-label">사랑</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 성장 기록 -->
+        <div class="section fade-in">
+            <h2 class="section-title">📊 쑥쑥 자라는 우리 아기</h2>
+            <div class="growth-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">📏</div>
+                    <div class="stat-label">키</div>
+                    <div class="stat-value">00cm</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⚖️</div>
+                    <div class="stat-label">몸무게</div>
+                    <div class="stat-value">0kg</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">😊</div>
+                    <div class="stat-label">웃은 횟수</div>
+                    <div class="stat-value">1,000+</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🍼</div>
+                    <div class="stat-label">수유 횟수</div>
+                    <div class="stat-value">0+</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 타임라인 -->
+        <div class="section fade-in">
+            <h2 class="section-title">👶 소중한 순간들</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Day 1 (0000.0.0)</div>
+                    <div class="timeline-content">
+                        <strong>우리 곁에 와줘서 고마워요! 👶</strong><br>
+                        0kg의 귀여운 아기가 세상에 나왔어요!
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Day 7</div>
+                    <div class="timeline-content">
+                        <strong>첫 미소 😊</strong><br>
+                        꿈꾸는 듯한 미소를 처음 보았어요!
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Day 50</div>
+                    <div class="timeline-content">
+                        <strong>목 가누기 시작! 💪</strong><br>
+                        조금씩 고개를 들기 시작했어요!
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Day 80</div>
+                    <div class="timeline-content">
+                        <strong>옹알이 시작 🗣️</strong><br>
+                        "아~", "우~" 귀여운 소리를 내요!
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Day 100 (0000.0.0)</div>
+                    <div class="timeline-content">
+                        <strong>백일 축하합니다! 🎊</strong><br>
+                        건강하게 100일을 맞이했어요! 앞으로도 건강하게 자라나요!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 사진 갤러리 -->
+        <div class="section fade-in">
+            <h2 class="section-title">📸 사진첩</h2>
+            <div class="photo-gallery">
+                <div class="photo-placeholder">
+                    👶
+                    <div class="photo-caption">Day 1</div>
+                </div>
+                <div class="photo-placeholder">
+                    😊
+                    <div class="photo-caption">첫 미소</div>
+                </div>
+                <div class="photo-placeholder">
+                    🎉
+                    <div class="photo-caption">삼칠일</div>
+                </div>
+                <div class="photo-placeholder">
+                    🍼
+                    <div class="photo-caption">수유 시간</div>
+                </div>
+                <div class="photo-placeholder">
+                    😴
+                    <div class="photo-caption">꿀잠</div>
+                </div>
+                <div class="photo-placeholder">
+                    🎂
+                    <div class="photo-caption">백일 상</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 축하 메시지 -->
+        <div class="section fade-in">
+            <div class="message-box">
+                <div class="message-text">
+                    <span class="footprint">👣</span>
+                    우리 연우에게
+                    <br><br>
+                    NNNNN.<br>
+                    NNNNN
+                    <br>
+                    NNNNN<br>
+                    💕
+                    <br><br>
+                    <span class="footprint">👣</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 스크롤 애니메이션
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 카운터 애니메이션
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(start).toLocaleString();
+                }
+            }, 16);
+        }
+
+        // 페이지 로드 시 카운터 애니메이션 실행
+        window.addEventListener('load', () => {
+            const counters = document.querySelectorAll('.counter-number');
+            counters[0].textContent = '0';
+            counters[1].textContent = '0';
+            counters[2].textContent = '0';
+            
+            setTimeout(() => {
+                animateCounter(counters[0], 100, 1500);
+                animateCounter(counters[1], 2400, 1500);
+                animateCounter(counters[2], 144000, 1500);
+            }, 500);
+        });
+
+        // 사진 플레이스홀더 클릭 이벤트
+        document.querySelectorAll('.photo-placeholder').forEach(photo => {
+            photo.addEventListener('click', () => {
+                alert('사진 📸');
+            });
+        });
+    </script>
+</body>
+</html>
