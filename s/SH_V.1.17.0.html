@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>삼화양행 V 1.17.0</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-navy: #0A1628;
+            --secondary-blue: #1B3A6D;
+            --accent-cyan: #00D9FF;
+            --accent-green: #00C896;
+            --tech-silver: #C8CDD4;
+            --light-gray: #F5F7FA;
+            --dark-gray: #3A4557;
+            --white: #FFFFFF;
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--primary-navy);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: var(--white);
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            background: rgba(10, 22, 40, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+        
+        .logo {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 0.9;
+        }
+
+        .logo-text span {
+            display: block;
+        }
+        
+        .logo-accent {
+            color: var(--accent-cyan);
+            font-size: 32px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 45px;
+            list-style: none;
+        }
+        
+        .nav-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-menu a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-cyan);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--accent-cyan);
+        }
+        
+        .nav-menu a:hover:after {
+            width: 100%;
+        }
+        
+        .nav-lang {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .nav-lang button {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--white);
+            padding: 6px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-lang button:hover,
+        .nav-lang button.active {
+            background: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+            color: var(--primary-navy);
+        }
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--secondary-blue) 100%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--white);
+            max-width: 1000px;
+            padding: 0 20px;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: rgba(0, 217, 255, 0.15);
+            border: 1px solid var(--accent-cyan);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero h1 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero-subtitle {
+            font-size: 20px;
+            font-weight: 300;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-bottom: 50px;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            animation: fadeInUp 1s ease 0.8s both;
+        }
+        
+        .btn {
+            padding: 16px 40px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: var(--accent-cyan);
+            color: var(--primary-navy);
+            box-shadow: 0 4px 15px rgba(0, 217, 255, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 217, 255, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--primary-navy);
+            transform: translateY(-2px);
+        }
+        
+        .business-areas {
+            padding: 120px 20px;
+            background: var(--white);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .section-label {
+            display: inline-block;
+            background: var(--light-gray);
+            color: var(--secondary-blue);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .section-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 15px;
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--dark-gray);
+            font-weight: 300;
+        }
+        
+        .business-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .business-card {
+            background: var(--white);
+            border: 1px solid #E5E9F0;
+            border-radius: 12px;
+            padding: 34px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+        
+        .business-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .business-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent-cyan);
+        }
+        
+        .business-card:hover:before {
+            transform: scaleX(1);
+        }
+        
+        .business-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            font-size: 28px;
+        }
+        
+        .business-card h3 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary-navy);
+        }
+        
+        .business-card p {
+            color: var(--dark-gray);
+            line-height: 1.7;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .business-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tag {
+            background: var(--light-gray);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            color: var(--secondary-blue);
+            font-weight: 500;
+        }
+        
+        .trust-section {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--secondary-blue) 100%);
+            padding: 100px 20px;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .trust-section:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 217, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .trust-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .trust-text h2 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            line-height: 1.3;
+        }
+        
+        .trust-text p {
+            font-size: 17px;
+            line-height: 1.8;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .certification-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+        
+        .cert-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .cert-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .cert-item h4 {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .cert-item p {
+            font-size: 13px;
+            opacity: 0.7;
+            margin: 0;
+        }
+        
+        .partners-section {
+            padding: 80px 20px;
+            background: var(--light-gray);
+        }
+        
+        .partners-section h3 {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .partners-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+        
+        .partner-logo {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark-gray);
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+        
+        .partner-logo:hover {
+            opacity: 1;
+        }
+        
+        .news-section {
+            padding: 120px 20px;
+            background: var(--white);
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .news-card {
+            background: var(--white);
+            border: 1px solid #E5E9F0;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .news-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, var(--secondary-blue), var(--accent-cyan));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: var(--white);
+        }
+        
+        .news-content {
+            padding: 30px;
+        }
+        
+        .news-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .news-date,
+        .news-category {
+            font-size: 12px;
+            color: var(--dark-gray);
+            opacity: 0.7;
+        }
+        
+        .news-category {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+        
+        .news-card h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--primary-navy);
+            line-height: 1.4;
+        }
+        
+        .news-card p {
+            color: var(--dark-gray);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        
+        .footer {
+            background: var(--primary-navy);
+            color: var(--white);
+            padding: 80px 20px 30px;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-about h3 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--accent-cyan);
+        }
+        
+        .footer-about p {
+            opacity: 0.8;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--accent-cyan);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--accent-cyan);
+        }
+        
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 14px;
+            opacity: 0.6;
+        }
+        
+        @media (max-width: 1024px) {
+            .trust-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 48px;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .section-title {
+                font-size: 36px;
+            }
+            
+            .business-grid,
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="C:\Users\qudwn\OneDrive\바탕 화면\project\sh1\shLogo.png" alt="" style="width: 30px;">
+                <div class="logo-text">
+                    <span>SAMHWA</span>
+                    <span>YANGHAENG</span>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#about">회사소개</a></li>
+                <li><a href="#business">사업분야</a></li>
+                <li><a href="#technology">기술연구</a></li>
+                <li><a href="#careers">채용정보</a></li>
+                <li><a href="#contact">고객지원</a></li>
+            </ul>
+            <div class="nav-lang">
+                <button class="active">KR</button>
+                <button>EN</button>
+                <button>VN</button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">SINCE 1979</div>
+            <h1>Precision Manufacturing<br>Trusted Partnership</h1>
+            <p class="hero-subtitle">정밀 가공과 제조 역량을 바탕으로 신뢰를 쌓아온 기업</p>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">30+</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">α+</span>
+                    <span class="stat-label">Production Facilities</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">α+</span>
+                    <span class="stat-label">Engineers & Staff</span>
+                </div>
+            </div>
+            
+            <div class="hero-cta">
+                <a href="#contact" class="btn btn-primary">사업문의</a>
+                <a href="#catalog" class="btn btn-secondary">제품 카탈로그</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="business-areas" id="business">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-label">Our Business</span>
+                <h2 class="section-title">핵심 사업 영역</h2>
+                <p class="section-subtitle">핵심 역량만 간결하게 소개합니다</p>
+            </div>
+            
+            <div class="business-grid">
+                <div class="business-card fade-in">
+                    <div class="business-icon">⚡</div>
+                    <h3>PCB 가공</h3>
+                    <p>드릴, 레이저, 라우팅 중심의 정밀 가공 사업을 수행합니다.</p>
+                    <div class="business-tags">
+                        <span class="tag">드릴</span>
+                        <span class="tag">레이저</span>
+                    </div>
+                </div>
+
+                <div class="business-card fade-in">
+                    <div class="business-icon">🔬</div>
+                    <h3>-</h3>
+                    <p>-</p>
+                    <div class="business-tags">
+                        <span class="tag">-</span>
+                        <span class="tag">-</span>
+                    </div>
+                </div>
+
+                <div class="business-card fade-in">
+                    <div class="business-icon">⚙️</div>
+                    <h3>FA</h3>
+                    <p>-</p>
+                    <div class="business-tags">
+                        <span class="tag">-</span>
+                        <span class="tag">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="trust-section">
+        <div class="container">
+            <div class="trust-content">
+                <div class="trust-text">
+                    <h2>기술력과 신뢰로<br>검증된 파트너십</h2>
+                    <p>삼화양행은 30년이 넘는 기간 동안 국내외 주요 기업들과 함께 성장해왔습니다. ISO 인증을 비롯한 각종 품질 인증과 혁신 기술력을 바탕으로 고객의 성공을 함께 만들어갑니다.</p>
+                    <p>삼성전기를 비롯한 글로벌 파트너사들과의 협력을 통해 지속적인 기술 혁신과 품질 향상을 추구하고 있습니다.</p>
+                </div>
+                
+                <div class="certification-grid">
+                    <div class="cert-item">
+                        <div class="cert-icon">✓</div>
+                        <h4>ISO 9001 인증</h4>
+                        <p>품질경영시스템</p>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon">★</div>
+                        <h4>INNO-BIZ 인증</h4>
+                        <p>기술혁신형 중소기업</p>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon">◆</div>
+                        <h4>벤처기업 인증</h4>
+                        <p>혁신 기술력 보유</p>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon">⚡</div>
+                        <h4>생산경영시스템</h4>
+                        <p>PMS 우수 인증</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="partners-section">
+        <div class="container">
+            <h3>주요 협력사</h3>
+            <div class="partners-logos">
+                <div class="partner-logo">SAMSUNG</div>
+                <div class="partner-logo">LG</div>
+                <div class="partner-logo">DAEDUCK</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="news-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-label">News & Updates</span>
+                <h2 class="section-title">최신 소식</h2>
+                <p class="section-subtitle">NEW SECTION</p>
+            </div>
+            
+            <div class="news-grid">
+                <div class="news-card fade-in">
+                    <div class="news-image">📰</div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-date">DATE</span>
+                            <span class="news-category">SUBJECT</span>
+                        </div>
+                        <h4>SUMMARY</SUMMAry></h4>
+                        <p>TO WRITE FREE</p>
+                    </div>
+                </div>
+
+                <div class="news-card fade-in">
+                    <div class="news-image">🌏</div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-date">DATE</span>
+                            <span class="news-category">SUBJECT</span>
+                        </div>
+                        <h4>SUMMARY</SUMMAry></h4>
+                        <p>TO WRITE FREE</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>SAMHWA</h3>
+                <p>30년의 기술력과 신뢰로 글로벌 제조업의 파트너가 되겠습니다.</p>
+                <p><strong>본사:</strong> 서울특별시 금천구 가산디지털1로 145<br>
+                에이스하이엔드타워3차 1204호</p>
+                <p><strong>Tel:</strong> 02-1234-5678<br>
+                <strong>Email:</strong> info@shg.co.kr</p>
+            </div>
+            
+            <div class="footer-links">
+                <h4>회사소개</h4>
+                <ul>
+                    <li><a href="#">CEO 인사말</a></li>
+                    <li><a href="#">회사 연혁</a></li>
+                    <li><a href="#">조직도</a></li>
+                    <li><a href="#">오시는 길</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>사업분야</h4>
+                <ul>
+                    <li><a href="#">PCB 가공</a></li>
+                    <li><a href="#">NULL</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>고객지원</h4>
+                <ul>
+                    <li><a href="#">사업 문의</a></li>
+                    <li><a href="#">카탈로그</a></li>
+                    <li><a href="#">채용정보</a></li>
+                    <li><a href="#">공지사항</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; Design by BJ</p>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
