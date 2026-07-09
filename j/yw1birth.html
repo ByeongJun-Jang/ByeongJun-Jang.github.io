@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>장연우 첫 생일에 초대합니다</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF8F1;
+    --mint-pale:#E8F7EF;
+    --mint:#4FBE95;
+    --mint-deep:#2E9873;
+    --teal:#1F3D3A;
+    --yellow:#FFD666;
+    --coral:#FF9466;
+    --line: rgba(31,61,58,0.12);
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--cream);
+    color:var(--teal);
+    font-family:'Noto Sans KR', sans-serif;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  .page{
+    max-width:480px;
+    margin:0 auto;
+    min-height:100vh;
+    background:var(--cream);
+    position:relative;
+    box-shadow:0 0 60px rgba(31,61,58,0.08);
+  }
+
+  .sun-wrap{
+    position:relative;
+    width:220px; height:220px;
+    margin:0 auto;
+  }
+  .sun-wrap svg{ width:100%; height:100%; display:block; }
+  .ray{ transform-origin:110px 110px; animation:spin 40s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  .flame{ transform-origin:110px 76px; animation:flicker 1.6s ease-in-out infinite alternate; }
+  @keyframes flicker{
+    0%{ transform:scale(1,1) rotate(-2deg); opacity:1; }
+    50%{ transform:scale(0.88,1.16) rotate(2deg); opacity:0.88; }
+    100%{ transform:scale(1.05,0.92) rotate(-1deg); opacity:1; }
+  }
+
+  .confetti{ animation:float 3.2s ease-in-out infinite; }
+  @keyframes float{
+    0%{ transform:translateY(0); opacity:0; }
+    18%{ opacity:1; }
+    55%{ transform:translateY(-16px); opacity:1; }
+    100%{ transform:translateY(-32px); opacity:0; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .ray, .flame, .confetti{ animation:none; }
+  }
+
+  .hero{
+    padding:64px 32px 40px;
+    text-align:center;
+  }
+  .eyebrow{
+    font-size:13px;
+    letter-spacing:0.35em;
+    color:var(--mint-deep);
+    font-weight:600;
+    margin-bottom:28px;
+    text-transform:uppercase;
+  }
+  .baby-name{
+    font-family:'Gowun Batang', serif;
+    font-size:44px;
+    line-height:1.3;
+    margin:28px 0 6px;
+    color:var(--teal);
+  }
+  .baby-sub{
+    font-size:14px;
+    letter-spacing:0.15em;
+    color:var(--mint-deep);
+    font-weight:500;
+  }
+  .greeting{
+    margin-top:36px;
+    font-size:15.5px;
+    line-height:1.9;
+    color:var(--teal);
+    opacity:0.88;
+  }
+  .greeting b{ color:var(--mint-deep); font-weight:600; }
+
+  .divider{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:8px 0 0;
+  }
+  .divider .dot{ width:5px; height:5px; border-radius:50%; background:var(--yellow); }
+  .divider .dot:nth-child(2){ background:var(--mint); }
+  .divider .dot:nth-child(3){ background:var(--coral); }
+
+  .photo-section{
+    padding:48px 32px 8px;
+    text-align:center;
+  }
+  .photo-frame{
+    width:220px; height:220px;
+    margin:0 auto;
+    border-radius:50%;
+    border:2px dashed var(--mint);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--mint-pale);
+    overflow:hidden;
+    position:relative;
+  }
+  /* .photo-frame 안의 내용을 <img src="사진경로.jpg" alt="연우"> 로 교체 */
+  .photo-frame .placeholder-icon{
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+    color:var(--mint-deep);
+  }
+  .photo-frame .placeholder-icon span{
+    font-size:12px; letter-spacing:0.05em; color:var(--mint-deep); opacity:0.75;
+  }
+  .photo-frame img{ width:100%; height:100%; object-fit:cover; display:none; }
+
+  .info-section{
+    padding:52px 28px 20px;
+  }
+  .info-card{
+    background:#fff;
+    border-radius:20px;
+    padding:26px 24px;
+    margin-bottom:16px;
+    border:1px solid var(--line);
+    display:flex;
+    gap:18px;
+    align-items:flex-start;
+  }
+  .info-icon{
+    flex:0 0 auto;
+    width:40px; height:40px;
+    border-radius:12px;
+    background:var(--mint-pale);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .info-icon svg{ width:20px; height:20px; }
+  .info-label{
+    font-size:12px;
+    letter-spacing:0.12em;
+    color:var(--mint-deep);
+    font-weight:600;
+    margin-bottom:6px;
+    text-transform:uppercase;
+  }
+  .info-value{
+    font-size:16px;
+    font-weight:500;
+    line-height:1.55;
+    color:var(--teal);
+  }
+  .info-value.tbd{
+    color:rgba(31,61,58,0.42);
+    font-weight:400;
+    font-style:normal;
+  }
+  .info-note{
+    font-size:12.5px;
+    color:rgba(31,61,58,0.45);
+    margin-top:4px;
+  }
+
+  .parents-section{
+    padding:12px 32px 56px;
+    text-align:center;
+  }
+  .parents-title{
+    font-size:13px;
+    letter-spacing:0.2em;
+    color:var(--mint-deep);
+    font-weight:600;
+    margin-bottom:18px;
+  }
+  .parents-names{
+    font-size:17px;
+    font-weight:500;
+    color:var(--teal);
+    line-height:2;
+  }
+  .parents-names .tbd{ color:rgba(31,61,58,0.42); font-weight:400; }
+  .parents-role{
+    font-size:12px;
+    color:rgba(31,61,58,0.5);
+    letter-spacing:0.05em;
+  }
+
+  .footer{
+    padding:40px 32px 56px;
+    text-align:center;
+    background:var(--mint-pale);
+    border-radius:32px 32px 0 0;
+  }
+  .footer-leaf{ margin-bottom:14px; }
+  .footer-text{
+    font-family:'Gowun Batang', serif;
+    font-size:18px;
+    color:var(--teal);
+    line-height:1.7;
+  }
+  .footer-sub{
+    margin-top:8px;
+    font-size:12.5px;
+    color:rgba(31,61,58,0.5);
+    letter-spacing:0.08em;
+  }
+
+  .edit-hint{
+    text-align:center;
+    font-size:11px;
+    color:rgba(31,61,58,0.32);
+    padding:14px 20px 28px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <section class="hero">
+    <div class="eyebrow">FIRST BIRTHDAY INVITATION</div>
+
+    <div class="sun-wrap">
+      <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+        <g class="ray">
+          <g fill="none" stroke-linecap="round">
+            <g stroke="#FFD666" stroke-width="7">
+              <line x1="110" y1="14" x2="110" y2="40"/>
+              <line x1="196" y1="110" x2="170" y2="110"/>
+              <line x1="110" y1="206" x2="110" y2="180"/>
+              <line x1="24" y1="110" x2="50" y2="110"/>
+            </g>
+            <g stroke="#FF9466" stroke-width="7">
+              <line x1="165" y1="55" x2="147" y2="73"/>
+              <line x1="165" y1="165" x2="147" y2="147"/>
+              <line x1="55" y1="165" x2="73" y2="147"/>
+              <line x1="55" y1="55" x2="73" y2="73"/>
+            </g>
+          </g>
+        </g>
+        <circle cx="110" cy="110" r="62" fill="#4FBE95"/>
+        <circle cx="110" cy="110" r="62" fill="none" stroke="#FBF8F1" stroke-width="3"/>
+
+        <circle class="confetti" cx="80" cy="96" r="3" fill="#FFD666" style="animation-delay:0s"/>
+        <rect class="confetti" x="141" y="90" width="5" height="5" rx="1.5" fill="#FF9466" style="animation-delay:0.7s"/>
+        <circle class="confetti" cx="128" cy="84" r="2.6" fill="#FBF8F1" style="animation-delay:1.4s"/>
+        <circle class="confetti" cx="92" cy="80" r="2.4" fill="#FF9466" style="animation-delay:2s"/>
+        <rect class="confetti" x="118" y="98" width="4" height="4" rx="1" fill="#FFD666" style="animation-delay:0.3s"/>
+
+        <ellipse cx="110" cy="150" rx="42" ry="7" fill="#FBF8F1" opacity="0.5"/>
+
+        <rect x="76" y="122" width="68" height="30" rx="9" fill="#FBF8F1"/>
+        <circle cx="86" cy="122" r="6" fill="#FFD666"/>
+        <circle cx="100" cy="122" r="6" fill="#FFD666"/>
+        <circle cx="114" cy="122" r="6" fill="#FFD666"/>
+        <circle cx="128" cy="122" r="6" fill="#FFD666"/>
+        <circle cx="134" cy="122" r="6" fill="#FFD666"/>
+
+        <rect x="86" y="100" width="48" height="24" rx="8" fill="#FBF8F1"/>
+        <circle cx="93" cy="100" r="5" fill="#FF9466"/>
+        <circle cx="105" cy="100" r="5" fill="#FF9466"/>
+        <circle cx="117" cy="100" r="5" fill="#FF9466"/>
+        <circle cx="127" cy="100" r="5" fill="#FF9466"/>
+
+        <rect x="106" y="82" width="7" height="20" rx="2.5" fill="#FF9466"/>
+        <rect x="106" y="88" width="7" height="3" fill="#FBF8F1" opacity="0.8"/>
+        <rect x="106" y="94" width="7" height="3" fill="#FBF8F1" opacity="0.8"/>
+
+        <g class="flame">
+          <path d="M110 66 C114 71 115 76 110 82 C105 76 106 71 110 66 Z" fill="#FFD666"/>
+          <path d="M110 71 C112 74 112.5 77 110 80 C107.5 77 108 74 110 71 Z" fill="#FF9466"/>
+        </g>
+      </svg>
+    </div>
+
+    <h1 class="baby-name">장 연 우</h1>
+    <div class="baby-sub">JANG YEON WOO</div>
+
+    <div class="divider">
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    </div>
+
+    <p class="greeting">
+      세상에 태어나 씩씩하게 첫 한 해를 보낸<br>
+      <b>연우</b>의 첫 생일을 맞이하여<br>
+      소중한 분들을 초대합니다.<br><br>
+      귀한 걸음으로 함께해 주시어<br>
+      연우의 앞날을 축복해 주시면 감사하겠습니다.
+    </p>
+  </section>
+
+  <section class="photo-section">
+    <div class="photo-frame">
+      <!-- 준비되면 아래 div를 지우고 <img src="연우사진.jpg" alt="장연우">넣기 -->
+      <div class="placeholder-icon">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#2E9873" stroke-width="1.6">
+          <circle cx="12" cy="8" r="3.2"/>
+          <path d="M5 19c0-3.9 3.1-6.5 7-6.5s7 2.6 7 6.5"/>
+        </svg>
+        <span>사진은 준비되면 넣어주세요</span>
+      </div>
+      <img src="" alt="장연우">
+    </div>
+  </section>
+
+  <section class="info-section">
+
+    <div class="info-card">
+      <div class="info-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#2E9873" stroke-width="1.7">
+          <rect x="3.5" y="5" width="17" height="16" rx="2.5"/>
+          <line x1="3.5" y1="9.5" x2="20.5" y2="9.5"/>
+          <line x1="8" y1="3" x2="8" y2="7"/>
+          <line x1="16" y1="3" x2="16" y2="7"/>
+        </svg>
+      </div>
+      <div>
+        <div class="info-label">Date &amp; Time</div>
+        <div class="info-value tbd">일시 : </div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#2E9873" stroke-width="1.7">
+          <path d="M12 21s7-6.3 7-11.5A7 7 0 0 0 5 9.5C5 14.7 12 21 12 21Z"/>
+          <circle cx="12" cy="9.5" r="2.4"/>
+        </svg>
+      </div>
+      <div>
+        <div class="info-label">Location</div>
+        <div class="info-value tbd">장소 : </div>
+        <div class="info-note">충청북도 청주시</div>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="parents-section">
+    <div class="parents-title">PARENTS</div>
+    <div class="parents-names">
+      <span class="tbd">장시호</span> · <span class="tbd">사지혜</span>
+    </div>
+    <div class="parents-role">의 아들 연우</div>
+  </section>
+
+  <section class="footer">
+    <div class="footer-leaf">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+        <path d="M12 21c-5-1-8-5-8-10 5 0 9 3 10 8 1-5 5-8 10-8 0 5-3 9-8 10-1 .2-3 .2-4 0Z" fill="#4FBE95" opacity="0.85"/>
+      </svg>
+    </div>
+    <div class="footer-text">연우의 첫 생일,<br>함께해 주셔서 감사합니다</div>
+    <div class="footer-sub">2026 · YEON WOO'S FIRST BIRTHDAY</div>
+  </section>
+
+  <div class="edit-hint">안녕하세요~</div>
+
+</div>
+
+</body>
+</html>
